@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation – Psychometrica ProPlus</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <style>
+        :root {
+            --primary-dark: #1A2A57;
+            --primary-main: #2B3A67;
+            --primary-light: #5269a7;
+            --accent-main: #F9A826;
+            --accent-dark: #e89a1d;
+            --text-dark: #333333;
+            --text-light: #f8f9fa;
+            --text-muted: #6c757d;
+            --bg-light: #f4f7fc; /* Lighter page background */
+            --bg-white: #ffffff;
+            --border-color: #dee2e6;
+            --border-radius-sm: 6px;
+            --border-radius-md: 12px;
+            --success: #28a745;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #128C7E;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 5px 15px rgba(43, 58, 103, 0.1);
+            --gap-sm: 8px;
+            --gap-md: 16px;
+            --gap-lg: 24px;
+            --font-primary: 'Poppins', sans-serif;
+            --transition: 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: var(--gap-lg);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align to top for potentially long content */
+            min-height: 100vh;
+        }
+
+        .payment-container {
+            background-color: var(--bg-white);
+            padding: var(--gap-lg) var(--gap-lg);
+            max-width: 550px; /* Slightly wider */
+            width: 100%;
+            margin: auto;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-md);
+            text-align: center;
+        }
+
+        .logo-container img {
+            max-width: 180px; /* Adjust as needed */
+            height: auto;
+            margin-bottom: var(--gap-md);
+            /* Ensure your paymentlogo.jpg exists or replace src */
+        }
+
+        .payment-container h2 {
+            color: var(--primary-dark);
+            margin-bottom: var(--gap-lg);
+            font-weight: 600;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: var(--gap-md);
+            text-align: left; /* Align labels left */
+        }
+
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--gap-sm);
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-main);
+            box-shadow: 0 0 0 3px rgba(43, 58, 103, 0.15);
+        }
+
+        select {
+             appearance: none;
+             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23333333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+             background-repeat: no-repeat;
+             background-position: right 15px center;
+             background-size: 1em;
+             padding-right: 40px;
+             cursor: pointer;
+        }
+
+        /* Payment Method Details Styling */
+        .payment-details {
+            margin-top: var(--gap-lg);
+            padding: var(--gap-md);
+            background-color: var(--bg-light);
+            border-radius: var(--border-radius-sm);
+            border: 1px dashed var(--border-color);
+            text-align: left;
+            display: none; /* Hidden by default */
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .payment-details.active {
+            display: block;
+        }
+
+        .payment-details p {
+            margin-bottom: var(--gap-sm);
+            font-size: 0.95rem;
+            word-wrap: break-word; /* Prevent long strings from overflowing */
+        }
+         .payment-details p strong {
+            color: var(--primary-main);
+            display: inline-block;
+            min-width: 120px; /* Align labels somewhat */
+         }
+
+        .payment-details img { /* For QR code */
+            display: block;
+            max-width: 200px; /* Adjust QR code size */
+            height: auto;
+            margin: var(--gap-md) auto; /* Center QR code */
+            border: 1px solid var(--border-color);
+            padding: 5px;
+            background-color: var(--bg-white);
+        }
+
+        .upi-link {
+            display: inline-block;
+            margin-top: var(--gap-sm);
+            padding: 8px 15px;
+            background-color: var(--primary-light);
+            color: var(--text-light);
+            border-radius: var(--border-radius-sm);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color var(--transition);
+        }
+        .upi-link:hover {
+            background-color: var(--primary-main);
+        }
+
+        /* Mobile Number Section */
+        .mobile-pay {
+            margin-top: var(--gap-lg);
+            padding: var(--gap-md);
+            background-color: #fff8e1; /* Light yellow highlight */
+            border: 1px solid #ffecb3;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.95rem;
+        }
+        .mobile-pay strong {
+            color: #ef6c00; /* Orange color */
+        }
+
+        /* Confirmation Form */
+        .confirmation-form {
+            margin-top: var(--gap-lg);
+            padding-top: var(--gap-lg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .confirmation-form h3 {
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: var(--gap-md);
+            font-size: 1.1rem;
+        }
+
+        .submit-button {
+            background-color: var(--whatsapp-green);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--border-radius-sm);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color var(--transition), transform var(--transition);
+            width: 100%; /* Full width button */
+            margin-top: var(--gap-sm);
+            display: inline-flex; /* Align icon and text */
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .submit-button:hover {
+            background-color: var(--whatsapp-dark);
+            transform: translateY(-2px);
+        }
+        .submit-button i {
+            font-size: 1.2em; /* Make icon slightly larger */
+        }
+
+
+        .note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: var(--gap-lg);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            body { padding: var(--gap-md); }
+            .payment-container { padding: var(--gap-lg); }
+            input[type="text"], select, .submit-button { font-size: 0.95rem; padding: 10px 12px;}
+            .payment-container h2 { font-size: 1.5rem; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="logo-container">
+             <img src="paymentlogo.jpg" alt="Psychometrica ProPlus">
+        </div>
+        <h2>Payment Confirmation</h2>
+
+        <div class="form-group">
+            <label for="paymentMode">Select Payment Method Used</label>
+            <select id="paymentMode" onchange="toggleMethod()" required>
+                <option value="">-- Select Payment Method --</option>
+                <option value="upi">UPI</option>
+                <option value="qr">Scanned QR Code</option>
+                <option value="bank">Bank Transfer (NEFT/IMPS)</option>
+                <option value="mobile">Mobile Number Transfer</option> </select>
+        </div>
+
+        <section id="upi-details" class="payment-details upi">
+             <h4><i class="fa-solid fa-paper-plane"></i> Pay via UPI ID</h4>
+             <p><strong>UPI ID:</strong> 8888801437@ibl</p>
+             <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App
+            </a>
+        </section>
+
+        <section id="qr-details" class="payment-details qr">
+            <h4><i class="fa-solid fa-qrcode"></i> Scan QR Code</h4>
+            <p>Scan this code using your UPI App:</p>
+             <img src="qr.jpeg" alt="Scan QR Code to Pay">
+        </section>
+
+        <section id="bank-details" class="payment-details bank">
+            <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer Details</h4>
+            <p><strong>Bank A/C:</strong> 0778104000013606</p>
+            <p><strong>IFSC:</strong> IBKL0000778</p>
+            <p><strong>Branch:</strong> Pashan Pune</p>
+            <p><strong>A/C Holder:</strong> Sachin Ashok Ambekar </p>
+            <p><strong>Bank Name:</strong> IDBI Bank</p> <p><strong>A/C Type:</strong> Saving Account</p> </section>
+
+        <div class="mobile-pay">
+            <p><i class="fa-solid fa-mobile-screen-button"></i> You can also pay directly to our Mobile Number: <br><strong>8888801437</strong> (Supports GPay, PhonePe etc.)</p>
+        </div>
+
+        <form class="confirmation-form" onsubmit="sendWhatsApp(); return false;">
+            <h3><i class="fa-solid fa-receipt"></i> Submit Payment Details</h3>
+            <div class="form-group">
+                <label for="name">Your Full Name</label>
+                <input type="text" id="name" placeholder="Enter the name used for payment" required>
+            </div>
+            <div class="form-group">
+                 <label for="purpose">Purpose of Payment / Product</label>
+                <input type="text" id="purpose" placeholder="e.g., ProPlus License, Report Fee" required>
+            </div>
+            <div class="form-group">
+                 <label for="txnid">Transaction ID / Reference No.</label>
+                <input type="text" id="txnid" placeholder="Enter the successful transaction ID" required>
+            </div>
+            <button type="submit" class="submit-button">
+                <i class="fab fa-whatsapp"></i> Send Confirmation via WhatsApp
+            </button>
+        </form>
+
+        <p class="note">After making the payment using one of the methods above, please fill and submit this form to help us track your payment quickly.</p>
+    </div>
+
+    <script>
+        function toggleMethod() {
+            const selectedValue = document.getElementById("paymentMode").value;
+            // Get all detail sections
+            const detailSections = document.querySelectorAll(".payment-details");
+
+            // Hide all sections first
+            detailSections.forEach(section => {
+                section.classList.remove("active");
+            });
+
+            // Show the selected one
+            if (selectedValue) {
+                const selectedSection = document.getElementById(selectedValue + "-details");
+                if (selectedSection) {
+                    selectedSection.classList.add("active");
+                }
+            }
+        }
+
+        function sendWhatsApp() {
+            const name = document.getElementById("name").value.trim();
+            const purpose = document.getElementById("purpose").value.trim();
+            const txnid = document.getElementById("txnid").value.trim();
+            const mode = document.getElementById("paymentMode").value;
+            const orderId = "ORD" + Date.now(); // Simple unique ID
+
+            // Basic validation
+            if (!name || !purpose || !txnid || !mode) {
+                alert("Please fill in all confirmation details, including the payment method used.");
+                return;
+            }
+
+             // Format payment mode for display
+            let modeDisplay = mode.toUpperCase();
+             if (mode === 'bank') modeDisplay = 'Bank Transfer';
+             if (mode === 'qr') modeDisplay = 'QR Scan';
+             if (mode === 'mobile') modeDisplay = 'Mobile Number Transfer';
+
+
+             // Encode message components properly for URL
+             const msg = encodeURIComponent(
+                `🧾 *Payment Confirmation*\n` +
+                `👤 *Name:* ${name}\n` +
+                `💼 *Purpose:* ${purpose}\n` +
+                `💳 *Mode:* ${modeDisplay}\n` +
+                `📎 *Txn ID/Ref:* ${txnid}\n` +
+                `🆔 *Order ID:* ${orderId}`
+            );
+
+            // Replace with your actual WhatsApp number
+            const phone = "919284157202";
+            const url = `https://wa.me/${phone}?text=${msg}`;
+
+            window.open(url, "_blank");
+        }
+
+        // Initialize visibility on page load (optional, default is hidden)
+        // toggleMethod(); // Uncomment if you want a section shown by default based on initial select value
+
+    </script>
+</body>
+</html>

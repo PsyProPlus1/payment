@@ -612,7 +612,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary-action" onclick="goToStep(2)">
+                <button type="button" class="btn btn-primary-action" onclick="confirmAndGoToStep2()">
                     Next: Confirm Details <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
@@ -675,6 +675,7 @@
         const detailContents = paymentDetailsArea.querySelectorAll('.payment-details-content');
 
         let selectedPaymentMethod = null; // Variable to store the selected method's value ('upi', 'qr', etc.)
+        let selectedPaymentMethodName = ''; // Variable to store the display name
 
         // --- Functions ---
 
@@ -683,12 +684,14 @@
          * @param {string} method - The data-method value of the selected card.
          */
         function selectPaymentMethod(method) {
-            selectedPaymentMethod = method; // Store the selected method
+            selectedPaymentMethod = method; // Store the selected method code
 
-            // Update card appearance
+            // Update card appearance and get display name
             methodCards.forEach(card => {
                 if (card.dataset.method === method) {
                     card.classList.add('selected');
+                    // Get the display name from the card's span element
+                    selectedPaymentMethodName = card.querySelector('span').textContent;
                 } else {
                     card.classList.remove('selected');
                 }
@@ -706,14 +709,40 @@
                 selectedDetailElement.classList.add('active');
                 paymentDetailsArea.style.justifyContent = 'flex-start'; // Align content to top-left
             } else {
-                // If no matching details found (shouldn't happen with current setup), show placeholder
+                // If no matching details found, show placeholder
                 detailsPlaceholder.style.display = 'block';
                  paymentDetailsArea.style.justifyContent = 'center';
             }
         }
 
         /**
+         * Performs validation and confirmation before proceeding to Step 2.
+         */
+        function confirmAndGoToStep2() {
+            // 1. Validation: Ensure a payment method was selected
+            if (!selectedPaymentMethod) {
+                alert("Please select a payment method first.");
+                paymentMethodsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return; // Stop if no method selected
+            }
+
+            // 2. Confirmation Dialog
+            // Use the stored display name (e.g., "UPI ID", "Scan QR")
+            const confirmationMessage = `Have you completed the payment using ${selectedPaymentMethodName}?`;
+
+            if (window.confirm(confirmationMessage)) {
+                // 3. If user confirms "Yes" (clicks OK), proceed to Step 2
+                goToStep(2);
+            } else {
+                // 4. If user cancels "No", do nothing (stay on Step 1)
+                console.log("User cancelled proceeding to step 2.");
+            }
+        }
+
+
+        /**
          * Navigates between payment steps (1 and 2).
+         * This function is now called *after* confirmation in confirmAndGoToStep2.
          * @param {number} stepNum - The step number to navigate to (1 or 2).
          */
         function goToStep(stepNum) {
@@ -729,14 +758,8 @@
 
             // --- Step 2 Logic ---
             } else if (stepNum === 2) {
-                 // Validation: Ensure a payment method was selected before proceeding
-                 if (!selectedPaymentMethod && step1Div.classList.contains('active-step')) {
-                    // Replace alert with a more professional notification if possible
-                    alert("Please select a payment method first.");
-                    // Optionally, scroll to the payment methods section
-                    paymentMethodsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    return; // Stop navigation
-                 }
+                // Move the validation part to confirmAndGoToStep2
+                // if (!selectedPaymentMethod && step1Div.classList.contains('active-step')) { ... }
 
                 step1Div.classList.remove("active-step");
                 step2Div.classList.add("active-step");
@@ -747,15 +770,9 @@
                 indicatorSeparator.classList.add('active'); // Activate separator line
             }
 
-             // Scroll smoothly to the top of the container after changing steps
+             // Scroll smoothly to the top of the page after changing steps
              setTimeout(() => {
-                 // Scroll the main body/window, not the container itself if header is fixed
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                // If header isn't fixed, scroll container into view
-                // document.querySelector('.payment-container').scrollIntoView({
-                //     behavior: 'smooth',
-                //     block: 'start'
-                // });
             }, 100);
         }
 
@@ -777,7 +794,7 @@
             const nameInput = document.getElementById("name");
             const purposeSelect = document.getElementById("purpose");
             const txnidInput = document.getElementById("txnid");
-            // Use the globally stored selectedPaymentMethod
+            // Use the globally stored selectedPaymentMethod code
             const mode = selectedPaymentMethod;
             const orderId = "ORD" + Date.now();
 
@@ -792,21 +809,19 @@
             if (!txnid) { alert("Please enter the Transaction ID / Reference No."); txnidInput.focus(); return; }
             if (!mode) {
                  alert("Error: Payment method selection is missing. Please go back to Step 1.");
-                 goToStep(1);
+                 goToStep(1); // Go back to step 1 if mode is somehow lost
                  return;
              }
 
             // --- Prepare WhatsApp Message ---
-            let modeDisplay = mode.toUpperCase();
-             if (mode === 'bank') modeDisplay = 'Bank Transfer';
-             if (mode === 'qr') modeDisplay = 'QR Scan';
-             if (mode === 'mobile') modeDisplay = 'Mobile Transfer';
+            // Use the stored display name for the message
+            let modeDisplay = selectedPaymentMethodName || mode.toUpperCase(); // Fallback to code if name missing
 
             const msg = encodeURIComponent(
                 `🧾 *Payment Confirmation - Psychometrica ProPlus*\n\n` +
                 `👤 *Name:* ${name}\n` +
                 `💼 *Purpose:* ${purpose}\n` +
-                `💳 *Mode Used:* ${modeDisplay}\n` +
+                `💳 *Mode Used:* ${modeDisplay}\n` + // Use display name
                 `📎 *Txn ID/Ref:* ${txnid}\n` +
                 `🆔 *Internal Order ID:* ${orderId}\n\n` +
                 `------------------------------------\n` +

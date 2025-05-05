@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Process – Psychometrica ProPlus</title>
+    <title>Complete Your Payment – Psychometrica ProPlus</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,138 +16,130 @@
             --primary-dark: #1A2A57;
             --primary-main: #2B3A67;
             --primary-light: #5269a7;
+            --primary-bg: #f4f7fc;
             --accent-main: #F9A826;
-            --accent-dark: #e89a1d;
-            --text-dark: #333333;
+            --text-dark: #212529;
             --text-light: #f8f9fa;
             --text-muted: #6c757d;
-            --bg-light: #f4f7fc;
+            --bg-light: #f8f9fa;
             --bg-white: #ffffff;
             --border-color: #dee2e6;
+            --border-color-light: #e9ecef;
             --border-radius-sm: 6px;
-            --border-radius-md: 12px;
+            --border-radius-md: 10px;
             --success: #28a745;
             --whatsapp-green: #25D366;
             --whatsapp-dark: #128C7E;
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 5px 15px rgba(43, 58, 103, 0.1);
+            --shadow-sm: 0 2px 5px rgba(43, 58, 103, 0.07);
+            --shadow-md: 0 6px 18px rgba(43, 58, 103, 0.1);
+            --gap-xs: 4px;
             --gap-sm: 8px;
             --gap-md: 16px;
             --gap-lg: 24px;
+            --gap-xl: 32px;
             --font-primary: 'Poppins', sans-serif;
-            --transition: 0.3s ease;
+            --transition-fast: 0.2s ease-out;
+            --transition-medium: 0.4s ease-out;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: var(--font-primary); background-color: var(--bg-light);
-            color: var(--text-dark); line-height: 1.6; padding: var(--gap-lg);
-            display: flex; justify-content: center; align-items: flex-start;
+            font-family: var(--font-primary); background-color: var(--primary-bg);
+            color: var(--text-dark); line-height: 1.65; padding: var(--gap-lg);
+            display: flex; justify-content: center; align-items: center;
             min-height: 100vh;
         }
 
         .payment-container {
-            background-color: var(--bg-white); padding: var(--gap-lg) var(--gap-lg);
-            max-width: 550px; width: 100%; margin: auto;
+            background-color: var(--bg-white); padding: var(--gap-xl);
+            max-width: 600px; width: 100%; margin: var(--gap-md) auto;
             border-radius: var(--border-radius-md); box-shadow: var(--shadow-md);
-            text-align: center;
+            text-align: center; overflow: hidden; position: relative;
         }
 
-        .logo-container img { max-width: 180px; height: auto; margin-bottom: var(--gap-md); }
+        .logo-container { margin-bottom: var(--gap-lg); }
+        .logo-container img { max-width: 160px; height: auto; }
 
-        .payment-container h2, .payment-container h3 {
-            color: var(--primary-dark); margin-bottom: var(--gap-lg); font-weight: 600;
-        }
-         .payment-container h3 { font-size: 1.2rem; margin-bottom: var(--gap-md); margin-top: var(--gap-lg); }
+        .payment-container h2 { color: var(--primary-dark); margin-bottom: var(--gap-sm); font-weight: 600; font-size: 1.6rem; }
+        .payment-container h3 { color: var(--primary-main); margin-bottom: var(--gap-lg); font-weight: 500; font-size: 1.1rem; }
+        .payment-container .step-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: var(--gap-xl); }
+
+
+        /* Step Indicator */
+        .step-indicator { display: flex; justify-content: center; margin-bottom: var(--gap-xl); position: relative; width: 60%; margin-left: auto; margin-right: auto; }
+        .step-indicator::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background-color: var(--border-color); transform: translateY(-50%); z-index: 1; }
+        .step-indicator::after { content: ''; position: absolute; top: 50%; left: 0; height: 2px; background-color: var(--primary-main); transform: translateY(-50%); z-index: 2; width: 0%; /* Start at 0% */ transition: width var(--transition-medium); }
+        .step-indicator.step-2::after { width: 100%; } /* Fill in step 2 */
+        .step-indicator .step { position: relative; z-index: 3; width: 30px; height: 30px; background-color: var(--bg-white); border: 2px solid var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--text-muted); transition: all var(--transition-medium); }
+        .step-indicator .step.active { border-color: var(--primary-main); background-color: var(--primary-main); color: var(--text-light); }
+        .step-indicator .step:first-child { margin-right: auto; }
+        .step-indicator .step:last-child { margin-left: auto; }
 
         /* Step Styling */
-        .payment-step { display: block; /* Show step 1 by default */ }
-        #step2 { display: none; /* Hide step 2 initially */ }
+        .payment-step { display: block; }
+        /* JS will handle display: none / block */
 
         /* Form Styling */
-        .form-group { margin-bottom: var(--gap-md); text-align: left; }
-        label {
-            display: block; font-weight: 500; margin-bottom: var(--gap-sm);
-            font-size: 0.9rem; color: var(--primary-dark);
-        }
-        input[type="text"], input[type="file"], select { /* Added file input */
-            width: 100%; padding: 12px 15px; border: 1px solid var(--border-color);
-            border-radius: var(--border-radius-sm); font-family: inherit; font-size: 1rem;
-            transition: border-color var(--transition), box-shadow var(--transition);
-        }
-         input[type="file"] { padding: 8px; /* Different padding for file input */ cursor: pointer; }
-         input[type="file"]::file-selector-button {
-             margin-right: var(--gap-md); padding: 8px 12px; border: none; background-color: var(--primary-light);
-             color: var(--text-light); border-radius: var(--border-radius-sm); cursor: pointer; transition: background-color var(--transition);
-         }
-         input[type="file"]::file-selector-button:hover { background-color: var(--primary-main); }
+        .form-group { margin-bottom: var(--gap-lg); text-align: left; }
+        label { display: block; font-weight: 500; margin-bottom: var(--gap-sm); font-size: 0.9rem; color: var(--primary-dark); }
+        input[type="text"], input[type="file"], select { width: 100%; padding: 12px 18px; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); font-family: inherit; font-size: 1rem; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); background-color: var(--bg-white); }
+        input[type="file"] { padding: 8px 10px; cursor: pointer; }
+        input[type="file"]::file-selector-button { margin-right: var(--gap-md); padding: 8px 15px; border: none; background-color: var(--primary-light); color: var(--text-light); border-radius: var(--border-radius-sm); cursor: pointer; transition: background-color var(--transition-fast); font-weight: 500; font-family: var(--font-primary); }
+        input[type="file"]::file-selector-button:hover { background-color: var(--primary-main); }
+        input[type="text"]:focus, select:focus { outline: none; border-color: var(--primary-main); box-shadow: 0 0 0 4px rgba(43, 58, 103, 0.1); }
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 16px; padding-right: 45px; cursor: pointer; }
 
-        input[type="text"]:focus, select:focus {
-            outline: none; border-color: var(--primary-main);
-            box-shadow: 0 0 0 3px rgba(43, 58, 103, 0.15);
-        }
-        select {
-             appearance: none;
-             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23333333' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
-             background-repeat: no-repeat; background-position: right 15px center;
-             background-size: 1em; padding-right: 40px; cursor: pointer;
-        }
-
-        /* Payment Method Details Styling */
-        .payment-details {
-            margin-top: var(--gap-lg); padding: var(--gap-md); background-color: var(--bg-light);
-            border-radius: var(--border-radius-sm); border: 1px dashed var(--border-color);
-            text-align: left; display: none; animation: fadeIn 0.5s ease;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Payment Method Details - Card Style */
+        .payment-details { margin-top: var(--gap-md); padding: var(--gap-lg); background-color: var(--bg-white); border-radius: var(--border-radius-md); border: 1px solid var(--border-color-light); text-align: left; display: none; animation: fadeIn 0.4s ease-out; box-shadow: var(--shadow-sm); margin-bottom: var(--gap-md); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .payment-details.active { display: block; }
-        .payment-details p { margin-bottom: var(--gap-sm); font-size: 0.95rem; word-wrap: break-word; }
-        .payment-details p strong { color: var(--primary-main); display: inline-block; min-width: 120px; }
-        .payment-details img { display: block; max-width: 200px; height: auto; margin: var(--gap-md) auto; border: 1px solid var(--border-color); padding: 5px; background-color: var(--bg-white); }
-        .upi-link {
-            display: inline-block; margin-top: var(--gap-sm); padding: 8px 15px; background-color: var(--primary-light);
-            color: var(--text-light); border-radius: var(--border-radius-sm); text-decoration: none;
-            font-weight: 500; transition: background-color var(--transition);
-        }
+        .payment-details h4 { font-size: 1rem; font-weight: 600; color: var(--primary-main); margin-bottom: var(--gap-md); border-bottom: 1px solid var(--border-color-light); padding-bottom: var(--gap-sm); display: flex; align-items: center; gap: var(--gap-sm); }
+        .payment-details h4 i { color: var(--primary-light); }
+        .payment-details p { margin-bottom: var(--gap-sm); font-size: 0.95rem; word-wrap: break-word; display: flex; justify-content: space-between; flex-wrap: wrap; }
+        .payment-details p strong { color: var(--text-dark); font-weight: 500; min-width: auto; margin-right: var(--gap-sm); }
+        .payment-details p span.value { color: var(--text-muted); font-weight: 400; text-align: right; word-break: break-all; }
+        .payment-details img { display: block; max-width: 180px; height: auto; margin: var(--gap-md) auto; border: none; padding: 0; background-color: transparent; }
+        .upi-link { display: inline-flex; align-items: center; gap: var(--gap-sm); margin-top: var(--gap-md); padding: 10px 18px; background-color: var(--primary-light); color: var(--text-light); border-radius: var(--border-radius-sm); text-decoration: none; font-weight: 500; transition: background-color var(--transition-fast); font-size: 0.9rem; }
         .upi-link:hover { background-color: var(--primary-main); }
+        .upi-link i { font-size: 0.9em; }
 
         /* Mobile Number Section */
-        .mobile-pay { margin-top: var(--gap-lg); padding: var(--gap-md); background-color: #fff8e1; border: 1px solid #ffecb3; border-radius: var(--border-radius-sm); font-size: 0.95rem; }
-        .mobile-pay strong { color: #ef6c00; }
+        .mobile-pay { margin-top: var(--gap-lg); padding: var(--gap-md); background-color: var(--primary-bg); border: 1px solid var(--border-color-light); border-radius: var(--border-radius-sm); font-size: 0.95rem; color: var(--primary-dark); }
+        .mobile-pay strong { color: var(--primary-main); font-weight: 600; font-size: 1.1em; }
+        .mobile-pay i { margin-right: var(--gap-sm); color: var(--primary-main); }
 
         /* Buttons */
-        .btn {
-            background-color: var(--primary-main); color: white; padding: 12px 25px;
-            border: none; border-radius: var(--border-radius-sm); font-size: 1rem;
-            font-weight: 600; cursor: pointer; transition: background-color var(--transition), transform var(--transition);
-            width: 100%; margin-top: var(--gap-lg); display: inline-flex; align-items: center;
-            justify-content: center; gap: 8px; text-decoration: none;
-        }
-         .btn:hover { background-color: var(--primary-dark); transform: translateY(-2px); }
-
+        .btn { background-color: var(--primary-main); color: white; padding: 14px 30px; border: none; border-radius: var(--border-radius-sm); font-size: 1rem; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); width: 100%; margin-top: var(--gap-lg); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; box-shadow: var(--shadow-sm); }
+        .btn:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
+        .btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); }
         .btn-whatsapp { background-color: var(--whatsapp-green); }
         .btn-whatsapp:hover { background-color: var(--whatsapp-dark); }
         .btn i { font-size: 1.1em; }
-
+        .btn-secondary { background-color: var(--bg-light); color: var(--primary-main); border: 1px solid var(--border-color); box-shadow: none; font-weight: 500; }
+        .btn-secondary:hover { background-color: var(--border-color-light); transform: translateY(-1px); box-shadow: var(--shadow-sm);}
 
         /* Confirmation Specific */
-        .confirmation-note {
-             font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--gap-md);
-             background-color: var(--bg-light); padding: var(--gap-sm) var(--gap-md); border-radius: var(--border-radius-sm);
-             border-left: 4px solid var(--primary-main); text-align: left;
-        }
+        .confirmation-note { font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--gap-lg); background-color: var(--primary-bg); padding: var(--gap-md); border-radius: var(--border-radius-sm); border-left: 4px solid var(--accent-main); text-align: left; }
+        .confirmation-note label { color: var(--primary-dark); font-weight: 600; }
+        .confirmation-note p { margin: var(--gap-sm) 0 0 0; color: var(--primary-dark); font-size: 0.9em; }
 
         .note { font-size: 0.85rem; color: var(--text-muted); margin-top: var(--gap-lg); }
 
         /* Responsive Adjustments */
         @media (max-width: 600px) {
-            body { padding: var(--gap-md); }
+            body { padding: var(--gap-sm); }
             .payment-container { padding: var(--gap-lg); }
-            input[type="text"], select, .btn { font-size: 0.95rem; padding: 10px 12px;}
-            .payment-container h2 { font-size: 1.5rem; }
-             .payment-container h3 { font-size: 1.1rem; }
+            input[type="text"], select, .btn { font-size: 1rem; }
+            .payment-container h2 { font-size: 1.4rem; }
+            .payment-container h3 { font-size: 1.1rem; }
+            .step-indicator { width: 80%; }
+            .payment-details p { flex-direction: column; align-items: flex-start; }
+            .payment-details p span.value { text-align: left; margin-top: var(--gap-xs); }
         }
+
     </style>
 </head>
 <body>
@@ -157,132 +149,182 @@
             <div class="logo-container">
                  <img src="paymentlogo.jpg" alt="Psychometrica ProPlus">
             </div>
+             <div class="step-indicator" id="stepIndicator1"> <div class="step active" id="indicator1-step1">1</div>
+                <div class="step" id="indicator1-step2">2</div>
+            </div>
             <h2>Step 1: Complete Your Payment</h2>
-            <p class="note" style="margin-bottom: var(--gap-lg);">Please use one of the methods below to make your payment. After completing, click 'Next' to confirm.</p>
+            <p class="step-subtitle">Choose your preferred method below and make the payment. Then click 'Next'.</p>
 
             <div class="form-group">
-                <label for="paymentMode">Select Payment Method to View Details</label>
+                <label for="paymentMode">View Payment Details For:</label>
                 <select id="paymentMode" onchange="toggleMethod()">
                     <option value="">-- Select Method --</option>
-                    <option value="upi">UPI</option>
+                    <option value="upi">UPI ID</option>
                     <option value="qr">Scan QR Code</option>
                     <option value="bank">Bank Transfer (NEFT/IMPS)</option>
-                    <option value="mobile">Mobile Number Transfer</option>
+                    <option value="mobile">Pay to Mobile Number</option>
                 </select>
             </div>
 
             <section id="upi-details" class="payment-details upi">
                  <h4><i class="fa-solid fa-paper-plane"></i> Pay via UPI ID</h4>
-                 <p><strong>UPI ID:</strong> 8888801437@ibl</p>
+                 <p><strong>UPI ID:</strong> <span class="value">8888801437@ibl</span></p>
                  <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App
                 </a>
             </section>
-
             <section id="qr-details" class="payment-details qr">
                 <h4><i class="fa-solid fa-qrcode"></i> Scan QR Code</h4>
-                <p>Scan this code using your UPI App:</p>
+                <p>Scan this code using your preferred UPI App:</p>
                  <img src="qr.jpeg" alt="Scan QR Code to Pay">
             </section>
-
             <section id="bank-details" class="payment-details bank">
                 <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer Details</h4>
-                <p><strong>Bank A/C:</strong> 0778104000013606</p>
-                <p><strong>IFSC:</strong> IBKL0000778</p>
-                <p><strong>Branch:</strong> Pashan Pune</p>
-                <p><strong>A/C Holder:</strong> Sachin Ashok Ambekar </p>
-                <p><strong>Bank Name:</strong> IDBI Bank</p>
-                <p><strong>A/C Type:</strong> Saving Account</p>
+                <p><strong>Account Holder:</strong> <span class="value">Sachin Ashok Ambekar</span></p>
+                <p><strong>Bank Name:</strong> <span class="value">IDBI Bank</span></p>
+                <p><strong>Account No:</strong> <span class="value">0778104000013606</span></p>
+                <p><strong>IFSC Code:</strong> <span class="value">IBKL0000778</span></p>
+                <p><strong>Branch:</strong> <span class="value">Pashan Pune</span></p>
+                <p><strong>Account Type:</strong> <span class="value">Saving Account</span></p>
+            </section>
+            <section id="mobile-details" class="payment-details mobile">
+                 <h4><i class="fa-solid fa-mobile-screen-button"></i> Pay to Mobile Number</h4>
+                 <p>You can pay directly using GPay, PhonePe, etc., to:</p>
+                 <p style="text-align:center; margin-top: var(--gap-md); font-size: 1.2em; font-weight: 600; color: var(--primary-dark);">
+                    <i class="fa-solid fa-mobile-screen"></i> 8888801437
+                 </p>
             </section>
 
-             <div class="mobile-pay">
-                <p><i class="fa-solid fa-mobile-screen-button"></i> Or pay directly to Mobile Number: <br><strong>8888801437</strong> (Supports GPay, PhonePe etc.)</p>
+            <div class="mobile-pay">
+                 <p><i class="fa-solid fa-circle-info"></i> Or pay directly to Mobile: <strong>8888801437</strong> (GPay, PhonePe etc.)</p>
             </div>
 
-            <button type="button" class="btn" onclick="goToStep2()">
-                Payment Completed, Confirm Details <i class="fa-solid fa-arrow-right"></i>
+            <button type="button" class="btn" onclick="goToStep(2)">
+                Next: Confirm Payment Details <i class="fa-solid fa-arrow-right"></i>
             </button>
-
-        </div> <div id="step2" class="payment-step">
+        </div> <div id="step2" class="payment-step"> <div class="step-indicator step-2" id="stepIndicator2"> <div class="step active" id="indicator2-step1">1</div>
+                <div class="step active" id="indicator2-step2">2</div>
+            </div>
             <h2>Step 2: Confirm Your Payment</h2>
+             <p class="step-subtitle">Please provide the details below and send via WhatsApp.</p>
 
-            <form class="confirmation-form" onsubmit="sendWhatsApp(); return false;">
-                <h3><i class="fa-solid fa-receipt"></i> Submit Payment Details</h3>
+            <form class="confirmation-form" id="confirmationForm">
+                <h3><i class="fa-solid fa-receipt"></i> Enter Payment Details</h3>
                 <div class="form-group">
                     <label for="name">Your Full Name</label>
                     <input type="text" id="name" placeholder="Enter the name used for payment" required>
                 </div>
                 <div class="form-group">
-                     <label for="purpose">Purpose of Payment / Product</label>
-                    <input type="text" id="purpose" placeholder="e.g., ProPlus License, Report Fee" required>
+                     <label for="purpose">Purpose of Payment</label>
+                     <select id="purpose" required>
+                         <option value="">-- Select Purpose --</option>
+                         <option value="New Licence Purchase">New Licence Purchase</option>
+                         <option value="Additional Licence">Additional Licence</option>
+                         <option value="Renewal">Renewal</option>
+                         <option value="Other">Other</option>
+                     </select>
                 </div>
                 <div class="form-group">
                      <label for="txnid">Transaction ID / Reference No.</label>
                     <input type="text" id="txnid" placeholder="Enter the successful transaction ID" required>
                 </div>
                 <div class="form-group confirmation-note">
-                    <label for="screenshotInfo"><i class="fa-solid fa-camera"></i> Share Screenshot (Optional)</label>
-                     <p>After clicking the button below, please **attach the payment screenshot directly in the WhatsApp chat** that opens. This helps us verify faster!</p>
-                     </div>
-
+                    <label for="screenshotInfo"><i class="fa-solid fa-camera"></i> Share Screenshot via WhatsApp</label>
+                     <p>After clicking 'Send Confirmation', please **attach the payment screenshot directly in the WhatsApp chat** that opens. This helps greatly with verification!</p>
+                </div>
                 <button type="submit" class="btn btn-whatsapp">
                     <i class="fab fa-whatsapp"></i> Send Confirmation via WhatsApp
                 </button>
             </form>
 
-            <p class="note">Submitting this form will open WhatsApp with a pre-filled message containing these details.</p>
-
-             <button type="button" class="btn" style="background-color: var(--text-muted); margin-top: var(--gap-md); font-size: 0.9rem; padding: 8px 15px; width: auto;" onclick="goToStep1()">
+            <button type="button" class="btn btn-secondary" style="margin-top: var(--gap-md);" onclick="goToStep(1)">
                 <i class="fa-solid fa-arrow-left"></i> Back to Payment Methods
             </button>
+        </div> <p class="note">Your payment helps us continue providing valuable insights. Thank you!</p>
 
+    </div> <script>
+        // Get references to elements needed multiple times
+        const step1Div = document.getElementById('step1');
+        const step2Div = document.getElementById('step2');
+        const stepIndicator1 = document.getElementById('stepIndicator1'); // Indicator in step 1
+        const stepIndicator2 = document.getElementById('stepIndicator2'); // Indicator in step 2
+        const indicator1_step1 = document.getElementById('indicator1-step1');
+        const indicator1_step2 = document.getElementById('indicator1-step2');
+        const indicator2_step1 = document.getElementById('indicator2-step1');
+        const indicator2_step2 = document.getElementById('indicator2-step2');
+        const paymentModeSelect = document.getElementById('paymentMode');
+        const confirmationForm = document.getElementById('confirmationForm');
 
-        </div> </div> <script>
         function toggleMethod() {
-            const selectedValue = document.getElementById("paymentMode").value;
+            const selectedValue = paymentModeSelect.value;
             const detailSections = document.querySelectorAll(".payment-details");
             detailSections.forEach(section => {
-                section.classList.remove("active"); // Hide all first
+                section.classList.remove("active");
             });
             if (selectedValue) {
                 const selectedSection = document.getElementById(selectedValue + "-details");
                 if (selectedSection) {
-                    selectedSection.classList.add("active"); // Show selected
+                    selectedSection.classList.add("active");
                 }
             }
         }
 
-        function goToStep1() {
-            document.getElementById("step1").style.display = "block";
-            document.getElementById("step2").style.display = "none";
+        function goToStep(stepNum) {
+            if (stepNum === 1) {
+                step1Div.style.display = "block";
+                step2Div.style.display = "none";
+                // Update indicators
+                stepIndicator1.classList.remove('step-2');
+                indicator1_step1.classList.add('active');
+                indicator1_step2.classList.remove('active');
+                stepIndicator2.classList.remove('step-2'); // Reset step 2 indicator as well
+                indicator2_step1.classList.add('active');
+                indicator2_step2.classList.remove('active');
+
+            } else if (stepNum === 2) {
+                 if (!paymentModeSelect.value) {
+                    alert("Please select a payment method from the dropdown first.");
+                    paymentModeSelect.focus();
+                    return;
+                 }
+                step1Div.style.display = "none";
+                step2Div.style.display = "block";
+                 // Update indicators
+                stepIndicator1.classList.add('step-2'); // Show progress on step 1 indicator
+                indicator1_step1.classList.add('active');
+                indicator1_step2.classList.add('active');
+                stepIndicator2.classList.add('step-2'); // Show progress on step 2 indicator
+                indicator2_step1.classList.add('active');
+                indicator2_step2.classList.add('active');
+            }
+             // Scroll to top of container smoothly after step change
+             document.querySelector('.payment-container').scrollIntoView({ behavior: 'smooth', block: 'start'});
         }
 
-        function goToStep2() {
-             // Optional: Check if a payment method was viewed - could add logic here
-             // if (!document.getElementById("paymentMode").value) {
-             //    alert("Please select a payment method to view details first.");
-             //    return;
-             // }
-            document.getElementById("step1").style.display = "none";
-            document.getElementById("step2").style.display = "block";
-        }
+        // Attach event listener to form submission
+        confirmationForm.addEventListener('submit', function(event) {
+             event.preventDefault();
+             sendWhatsApp();
+        });
 
         function sendWhatsApp() {
-            const name = document.getElementById("name").value.trim();
-            const purpose = document.getElementById("purpose").value.trim();
-            const txnid = document.getElementById("txnid").value.trim();
-            // Get the *selected* payment mode from step 1, even though it's hidden now
-            const mode = document.getElementById("paymentMode").value;
+            const nameInput = document.getElementById("name");
+            const purposeSelect = document.getElementById("purpose"); // Changed to purposeSelect
+            const txnidInput = document.getElementById("txnid");
+            const mode = paymentModeSelect.value;
             const orderId = "ORD" + Date.now();
 
-            // Validation for step 2 form
-            if (!name || !purpose || !txnid) {
-                alert("Please fill in Your Name, Purpose, and Transaction ID.");
-                return;
-            }
-             if (!mode) {
-                 // If somehow mode wasn't selected in step 1 (unlikely with current flow)
-                 alert("Error: Please go back and select the payment method used.");
+            const name = nameInput.value.trim();
+            const purpose = purposeSelect.value; // Get value from select
+            const txnid = txnidInput.value.trim();
+
+            // Validation
+            if (!name) { alert("Please enter Your Name."); nameInput.focus(); return; }
+            if (!purpose) { alert("Please select the Purpose of Payment."); purposeSelect.focus(); return; } // Changed validation message
+            if (!txnid) { alert("Please enter the Transaction ID / Reference No."); txnidInput.focus(); return; }
+            if (!mode) {
+                 alert("Error: Payment method selection missing. Please go back.");
+                 goToStep(1);
                  return;
              }
 
@@ -294,27 +336,38 @@
             const msg = encodeURIComponent(
                 `🧾 *Payment Confirmation*\n\n` +
                 `👤 *Name:* ${name}\n` +
-                `💼 *Purpose:* ${purpose}\n` +
-                `💳 *Mode Used:* ${modeDisplay}\n` + // Clarified label
+                `💼 *Purpose:* ${purpose}\n` + // Use selected purpose
+                `💳 *Mode Used:* ${modeDisplay}\n` +
                 `📎 *Txn ID/Ref:* ${txnid}\n` +
                 `🆔 *Internal Order ID:* ${orderId}\n\n` +
                 `------------------------------------\n` +
-                `*Please attach payment screenshot here in chat if possible.* 🙏` // Added request for screenshot
+                `*Please attach payment screenshot here in chat if possible.* 🙏`
             );
 
-            const phone = "919284157202"; // Replace with your number
+            const phone = "919284157202";
             const url = `https://wa.me/${phone}?text=${msg}`;
 
-            window.open(url, "_blank");
+            const submitButton = confirmationForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening WhatsApp...';
+            submitButton.disabled = true;
 
-            // Optional: Reset form or show success message after sending
-            // document.querySelector(".confirmation-form").reset();
-            // alert("WhatsApp opened! Please send the message and attach screenshot if needed.");
-            // goToStep1(); // Optionally go back to step 1
+            setTimeout(() => {
+                window.open(url, "_blank");
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            }, 500);
         }
 
-        // Initialize visibility on page load
-        goToStep1(); // Ensure only step 1 is visible initially
+        // Initialize to show Step 1 on page load
+        document.addEventListener('DOMContentLoaded', () => {
+             goToStep(1);
+             // Hide all payment details initially
+              const detailSections = document.querySelectorAll(".payment-details");
+              detailSections.forEach(section => {
+                  section.classList.remove("active");
+              });
+        });
 
     </script>
 </body>

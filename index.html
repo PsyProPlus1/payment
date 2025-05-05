@@ -7,9 +7,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <style>
+        /* --- CSS Variables (Theme & Layout) --- */
         :root {
             /* Professional Color Palette */
             --color-primary: #2B3A67; /* Deep Blue */
@@ -19,6 +21,7 @@
             --color-secondary-dark: #e0941a;
             --color-background: #f7f9fc; /* Light Grayish Blue */
             --color-surface: #ffffff; /* White */
+            --color-surface-subtle: #f8fafc; /* Slightly off-white for subtle backgrounds */
             --color-text-primary: #1e293b; /* Dark Gray */
             --color-text-secondary: #475569; /* Medium Gray */
             --color-text-muted: #94a3b8; /* Light Gray */
@@ -30,6 +33,8 @@
             --color-whatsapp: #25D366;
             --color-whatsapp-dark: #128C7E;
             --color-error: #dc2626; /* Red */
+            --color-warning-bg: #fffbeb; /* Light yellow for notes */
+            --color-warning-border: var(--color-secondary);
 
             /* Layout & Styling */
             --font-family-base: 'Inter', sans-serif;
@@ -49,7 +54,7 @@
             --transition-base: 0.2s ease-in-out;
         }
 
-        /* Base & Reset */
+        /* --- Base & Reset --- */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; font-size: 16px; }
         body {
@@ -64,66 +69,64 @@
             min-height: 100vh;
         }
 
-        /* Main Payment Container */
+        /* --- Main Payment Container --- */
         .payment-container {
             background-color: var(--color-surface);
             padding: 0; /* Remove padding to allow header full width */
-            max-width: 550px; /* Narrower for focused look */
+            max-width: 550px; /* Focused width */
             width: 100%;
             margin: var(--spacing-6) auto;
             border-radius: var(--border-radius-md);
             box-shadow: var(--shadow-lg);
             text-align: center;
-            overflow: hidden; /* Important for border-radius on header */
+            overflow: hidden; /* Keep header corners rounded */
             position: relative;
             border: 1px solid var(--color-border);
         }
 
-        /* --- HEADER STYLES (ICON REMOVED) --- */
+        /* --- Page Header --- */
         .page-header {
-            background-color: var(--color-primary); /* Dark blue background */
-            color: var(--color-text-on-primary); /* White text */
-            padding: var(--spacing-5) var(--spacing-5); /* Reduced padding slightly */
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+            padding: var(--spacing-5) var(--spacing-6); /* Adjusted padding */
             text-align: center;
-            margin-bottom: var(--spacing-6); /* Reduced space below header */
+            margin-bottom: var(--spacing-6);
         }
-        /* Removed icon style */
         .page-header h1 {
-            font-size: 1.6rem; /* Larger brand name */
+            font-size: 1.6rem;
             font-weight: 700;
             margin: 0;
             line-height: 1.2;
         }
         .page-header h1 .pro-plus {
-            font-weight: 500; /* Slightly lighter weight for "Pro Plus" */
-            color: var(--color-secondary); /* Accent color */
+            font-weight: 500;
+            color: var(--color-secondary);
             margin-left: var(--spacing-1);
         }
         .page-header .tagline {
             font-size: 0.9rem;
-            color: var(--color-text-on-primary-muted); /* Lighter text color */
+            color: var(--color-text-on-primary-muted);
             margin-top: var(--spacing-1);
             font-weight: 400;
         }
-        /* --- END HEADER STYLES --- */
 
-        /* Content Padding (Applied to sections inside container) */
+        /* --- Content Area Padding --- */
         .payment-content {
-            padding: 0 var(--spacing-8) var(--spacing-8) var(--spacing-8); /* Add padding back to content area */
+            padding: 0 var(--spacing-8) var(--spacing-8) var(--spacing-8);
         }
 
-        /* --- NEW LOGO STYLES (Inside Content) --- */
+        /* --- Logo Inside Content --- */
         .content-logo-container {
-            margin-bottom: var(--spacing-6); /* Space below logo */
-            text-align: center; /* Center the logo */
+            margin-bottom: var(--spacing-6);
+            text-align: center;
         }
         .content-logo {
-            max-width: 150px; /* Adjust size as needed */
+            max-width: 150px;
             height: auto;
+            border-radius: var(--border-radius-sm); /* Optional: slightly rounded corners */
         }
-        /* --- END NEW LOGO STYLES --- */
 
-        /* Headings & Subtitles (Inside payment-content) */
+        /* --- Headings & Subtitles (Inside Content) --- */
         .payment-content h2 {
             color: var(--color-text-primary);
             margin-bottom: var(--spacing-2);
@@ -153,7 +156,7 @@
             margin-right: auto;
         }
 
-        /* Step Indicator (Simplified) */
+        /* --- Step Indicator --- */
         .step-indicator {
             display: flex;
             justify-content: center;
@@ -188,6 +191,10 @@
             color: var(--color-text-muted);
             transition: all var(--transition-base);
         }
+        .step-indicator .step span:not(.step-number) { /* Target text only */
+             transition: opacity var(--transition-base);
+             opacity: 0.7; /* Slightly dim inactive step text */
+        }
         .step-indicator .step.active {
             color: var(--color-primary);
             font-weight: 600;
@@ -196,6 +203,9 @@
             border-color: var(--color-primary);
             background-color: var(--color-primary);
             color: var(--color-surface);
+        }
+        .step-indicator .step.active span:not(.step-number) {
+             opacity: 1; /* Full opacity for active step text */
         }
         .step-indicator .step-separator {
             height: 2px;
@@ -208,8 +218,7 @@
              background-color: var(--color-primary);
         }
 
-
-        /* Step Container Styling */
+        /* --- Step Container & Animation --- */
         .payment-step {
             display: none;
             animation: stepFadeIn 0.4s ease-out;
@@ -220,7 +229,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Payment Method Selection (Cards) */
+        /* --- Payment Method Selection Cards --- */
         .payment-methods {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
@@ -236,11 +245,13 @@
             transition: all var(--transition-base);
             background-color: var(--color-surface);
             position: relative; /* For checkmark */
+            outline-offset: 2px; /* Ensure focus outline is visible */
         }
-        .method-card:hover {
+        .method-card:hover, .method-card:focus-visible {
             border-color: var(--color-primary-light);
             box-shadow: var(--shadow-sm);
             transform: translateY(-2px);
+            outline: none; /* Remove default focus, use border/shadow */
         }
         .method-card.selected {
             border-color: var(--color-primary);
@@ -279,24 +290,31 @@
             box-shadow: var(--shadow-sm);
         }
 
-
-        /* Payment Details Display Area */
+        /* --- Payment Details Display Area --- */
         .payment-details-area {
             margin-top: var(--spacing-6);
             padding: var(--spacing-5);
-            background-color: var(--color-background); /* Subtle background */
+            background-color: var(--color-surface-subtle); /* Subtle background initially */
             border-radius: var(--border-radius-md);
             border: 1px solid var(--color-border);
             text-align: left;
             min-height: 150px; /* Ensure space even when empty */
-            display: flex; /* Use flex for centering placeholder */
-            align-items: center;
-            justify-content: center;
+            display: flex;
+            align-items: center; /* Center placeholder vertically */
+            justify-content: center; /* Center placeholder horizontally */
             transition: background-color var(--transition-base);
+        }
+        /* Style when a method is selected */
+        .payment-details-area.has-details {
+            background-color: var(--color-surface); /* White background when details shown */
+            justify-content: flex-start; /* Align content to top-left */
+            align-items: flex-start;
+            border-color: var(--color-primary-light); /* Subtle highlight */
         }
         .payment-details-placeholder {
             color: var(--color-text-muted);
             font-size: 0.9rem;
+            transition: opacity var(--transition-base);
         }
         .payment-details-content {
             display: none; /* Hidden until a method is selected */
@@ -350,6 +368,7 @@
             height: auto;
             margin: var(--spacing-4) auto;
             border-radius: var(--border-radius-sm);
+            border: 1px solid var(--color-border); /* Add subtle border to QR */
         }
         .upi-link {
             display: inline-flex;
@@ -364,14 +383,17 @@
             font-weight: 500;
             transition: all var(--transition-base);
             font-size: 0.9rem;
+            border: 1px solid transparent;
         }
-        .upi-link:hover {
+        .upi-link:hover, .upi-link:focus-visible {
             background-color: var(--color-primary);
             transform: translateY(-1px);
+            outline: none;
+            border-color: var(--color-primary-dark); /* Focus indicator */
         }
         .upi-link i { font-size: 1em; }
 
-        /* Form Styling (Step 2) */
+        /* --- Form Styling (Step 2) --- */
         .form-group {
             margin-bottom: var(--spacing-5);
             text-align: left;
@@ -398,24 +420,24 @@
         input[type="text"]:focus, select:focus {
             outline: none;
             border-color: var(--color-border-focus);
-            box-shadow: 0 0 0 3px rgba(43, 58, 103, 0.15);
+            box-shadow: 0 0 0 3px rgba(43, 58, 103, 0.15); /* Focus ring */
         }
         select {
-            appearance: none;
+            appearance: none; /* Remove default arrow */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right var(--spacing-4) center;
             background-size: 16px;
-            padding-right: var(--spacing-10);
+            padding-right: var(--spacing-10); /* Space for custom arrow */
             cursor: pointer;
         }
 
-        /* Buttons */
+        /* --- Buttons --- */
         .btn {
             background-color: var(--color-primary);
             color: var(--color-surface);
             padding: var(--spacing-3) var(--spacing-6);
-            border: none;
+            border: 1px solid transparent; /* Border for focus state consistency */
             border-radius: var(--border-radius-md);
             font-size: 1rem;
             font-weight: 600; /* Bolder buttons */
@@ -429,11 +451,16 @@
             gap: var(--spacing-2);
             text-decoration: none;
             box-shadow: var(--shadow-sm);
+            outline-offset: 2px; /* Ensure focus outline is visible */
         }
         .btn:hover {
             background-color: var(--color-primary-dark);
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
+        }
+        .btn:focus-visible {
+             outline: 2px solid var(--color-primary-light); /* Clear focus indicator */
+             box-shadow: var(--shadow-md);
         }
         .btn:active {
             transform: translateY(0);
@@ -443,18 +470,28 @@
         .btn-primary-action {
              background-color: var(--color-secondary);
              color: var(--color-primary-dark); /* Dark text on orange */
+             border-color: var(--color-secondary);
         }
         .btn-primary-action:hover {
              background-color: var(--color-secondary-dark);
+             border-color: var(--color-secondary-dark);
              box-shadow: var(--shadow-md);
+        }
+        .btn-primary-action:focus-visible {
+             outline-color: var(--color-secondary-dark);
         }
         /* WhatsApp Button */
         .btn-whatsapp {
             background-color: var(--color-whatsapp);
             color: var(--color-surface);
+            border-color: var(--color-whatsapp);
         }
         .btn-whatsapp:hover {
             background-color: var(--color-whatsapp-dark);
+            border-color: var(--color-whatsapp-dark);
+        }
+         .btn-whatsapp:focus-visible {
+             outline-color: var(--color-whatsapp-dark);
         }
         .btn i { font-size: 1.1em; }
         /* Secondary Button (Back) */
@@ -465,33 +502,34 @@
             box-shadow: none;
             font-weight: 500;
         }
-        .btn-secondary:hover {
+        .btn-secondary:hover, .btn-secondary:focus-visible {
             background-color: var(--color-background);
             border-color: var(--color-primary-light);
             box-shadow: var(--shadow-sm);
+            outline-color: var(--color-primary-light);
         }
 
-        /* Confirmation Step Specific */
+        /* --- Confirmation Step Specific --- */
         .confirmation-note {
             font-size: 0.9rem;
             color: var(--color-text-secondary);
             margin-bottom: var(--spacing-6);
-            background-color: #fffbeb; /* Light yellow background */
+            background-color: var(--color-warning-bg);
             padding: var(--spacing-4);
             border-radius: var(--border-radius-md);
-            border-left: 4px solid var(--color-secondary);
+            border-left: 4px solid var(--color-warning-border);
             text-align: left;
         }
         .confirmation-note strong { color: var(--color-text-primary); }
         .confirmation-note i {
-            color: var(--color-secondary);
+            color: var(--color-secondary); /* Use accent color for icon */
             margin-right: var(--spacing-2);
             font-size: 1.1em;
             vertical-align: middle;
         }
 
 
-        /* Footer Note */
+        /* --- Footer Note --- */
         .footer-note {
             font-size: 0.85rem;
             color: var(--color-text-muted);
@@ -501,10 +539,10 @@
         }
          .footer-note i {
              margin-right: var(--spacing-1);
-             color: var(--color-success);
+             color: var(--color-success); /* Green lock icon */
          }
 
-        /* Responsive Adjustments */
+        /* --- Responsive Adjustments --- */
         @media (max-width: 600px) {
             body { padding: var(--spacing-4); }
             .payment-container { margin: var(--spacing-4) auto; }
@@ -525,6 +563,7 @@
              .payment-methods { grid-template-columns: 1fr; } /* Single column on very small screens */
              .payment-content { padding: 0 var(--spacing-4) var(--spacing-4) var(--spacing-4); }
              .page-header { padding: var(--spacing-4); }
+             .payment-details-content p { font-size: 0.9rem; } /* Slightly smaller text in details */
         }
 
     </style>
@@ -551,27 +590,27 @@
                 </div>
             </div>
 
-            <div id="step1" class="payment-step active-step"> <div class="content-logo-container">
-                     <img src="paymentlogo.jpg" alt="Psychometrica ProPlus Logo" class="content-logo">
-                </div>
+            <div id="step1" class="payment-step active-step">
+                <div class="content-logo-container">
+                     <img src="paymentlogo.jpg" alt="Psychometrica ProPlus Logo" class="content-logo" onerror="this.style.display='none'"> </div>
 
                 <h2>Choose Your Payment Method</h2>
                 <p class="step-subtitle">Select how you'd like to pay below.</p>
 
                 <div class="payment-methods" id="paymentMethods">
-                    <div class="method-card" data-method="upi">
+                    <div class="method-card" data-method="upi" role="button" tabindex="0">
                         <i class="fa-solid fa-paper-plane"></i>
                         <span>UPI ID</span>
                     </div>
-                    <div class="method-card" data-method="qr">
+                    <div class="method-card" data-method="qr" role="button" tabindex="0">
                         <i class="fa-solid fa-qrcode"></i>
                         <span>Scan QR</span>
                     </div>
-                    <div class="method-card" data-method="bank">
+                    <div class="method-card" data-method="bank" role="button" tabindex="0">
                         <i class="fa-solid fa-building-columns"></i>
                         <span>Bank Transfer</span>
                     </div>
-                    <div class="method-card" data-method="mobile">
+                    <div class="method-card" data-method="mobile" role="button" tabindex="0">
                         <i class="fa-solid fa-mobile-screen-button"></i>
                         <span>Mobile No.</span>
                     </div>
@@ -592,18 +631,16 @@
                     <div id="qr-details" class="payment-details-content">
                         <h4><i class="fa-solid fa-qrcode"></i> Scan QR Code</h4>
                         <p>Scan this code using your preferred UPI App:</p>
-                         <img src="qr.jpeg" alt="Scan QR Code to Pay Psychometrica" class="qr-code">
-                    </div>
+                         <img src="qr.jpeg" alt="Scan QR Code to Pay Psychometrica" class="qr-code" onerror="this.alt='QR Code Image Unavailable'; this.style.border='1px dashed #ccc';"> </div>
                     <div id="bank-details" class="payment-details-content">
                         <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer Details</h4>
-                        <p><strong>Account Holder:</strong> <span class="value">Sachin Ashok Ambekar</span></p>
-                        <p><strong>Bank Name:</strong> <span class="value">IDBI Bank</span></p>
+                        <p><strong>Account Name:</strong> <span class="value">Sachin Ashok Ambekar</span></p> <p><strong>Bank Name:</strong> <span class="value">IDBI Bank</span></p>
                         <p><strong>Account No:</strong> <span class="value">0778104000013606</span></p>
                         <p><strong>IFSC Code:</strong> <span class="value">IBKL0000778</span></p>
                         <p><strong>Branch:</strong> <span class="value">Pashan Pune</span></p>
                         <p><strong>Account Type:</strong> <span class="value">Saving Account</span></p>
                     </div>
-                    <div id="mobile-details" class="payment-details-content">
+                     <div id="mobile-details" class="payment-details-content">
                          <h4><i class="fa-solid fa-mobile-screen-button"></i> Pay to Mobile Number</h4>
                          <p>You can pay directly using GPay, PhonePe, Paytm, etc., to the mobile number:</p>
                          <p style="text-align:center; margin-top: var(--spacing-4); font-size: 1.2em; font-weight: 600; color: var(--color-primary);">
@@ -617,18 +654,19 @@
                 </button>
             </div>
 
-            <div id="step2" class="payment-step"> <h2>Confirm Your Payment Details</h2>
+            <div id="step2" class="payment-step">
+                 <h2>Confirm Your Payment Details</h2>
                  <p class="step-subtitle">Enter the information below and send via WhatsApp for verification.</p>
 
                 <form class="confirmation-form" id="confirmationForm">
                     <h3><i class="fa-solid fa-receipt"></i> Your Information</h3>
                     <div class="form-group">
                         <label for="name">Your Full Name</label>
-                        <input type="text" id="name" placeholder="Enter the name used for payment" required>
+                        <input type="text" id="name" placeholder="Enter the name used for payment" required aria-required="true">
                     </div>
                     <div class="form-group">
                          <label for="purpose">Purpose of Payment</label>
-                         <select id="purpose" required>
+                         <select id="purpose" required aria-required="true">
                              <option value="">-- Select Purpose --</option>
                              <option value="New Licence Purchase">New Licence Purchase</option>
                              <option value="Additional Licence">Additional Licence</option>
@@ -638,12 +676,11 @@
                     </div>
                     <div class="form-group">
                          <label for="txnid">Transaction ID / Reference No.</label>
-                        <input type="text" id="txnid" placeholder="Enter the successful transaction ID" required>
+                        <input type="text" id="txnid" placeholder="Enter the successful transaction ID" required aria-required="true">
                     </div>
 
                     <div class="confirmation-note">
-                        <i class="fa-solid fa-camera-retro"></i>
-                        <span>After clicking below, please <strong>attach the payment screenshot</strong> in the WhatsApp chat that opens.</span>
+                        <i class="fa-solid fa-circle-info"></i> <span>After clicking below, please <strong>attach the payment screenshot</strong> in the WhatsApp chat that opens.</span>
                     </div>
 
                     <button type="submit" class="btn btn-whatsapp">
@@ -661,7 +698,7 @@
             </p>
 
         </div> </div> <script>
-        // --- Element References ---
+        // --- DOM Element References ---
         const step1Div = document.getElementById('step1');
         const step2Div = document.getElementById('step2');
         const indicatorStep1 = document.getElementById('indicator-step1');
@@ -674,13 +711,15 @@
         const methodCards = paymentMethodsContainer.querySelectorAll('.method-card');
         const detailContents = paymentDetailsArea.querySelectorAll('.payment-details-content');
 
-        let selectedPaymentMethod = null; // Variable to store the selected method's value ('upi', 'qr', etc.)
-        let selectedPaymentMethodName = ''; // Variable to store the display name
+        // --- State Variables ---
+        let selectedPaymentMethod = null; // Stores the selected method's code ('upi', 'qr', etc.)
+        let selectedPaymentMethodName = ''; // Stores the display name ("UPI ID", "Scan QR", etc.)
 
-        // --- Functions ---
+        // --- Core Functions ---
 
         /**
-         * Updates the display based on the selected payment method card.
+         * Updates the UI when a payment method card is selected.
+         * Handles card styling, shows relevant details, and hides placeholder.
          * @param {string} method - The data-method value of the selected card.
          */
         function selectPaymentMethod(method) {
@@ -691,7 +730,7 @@
                 if (card.dataset.method === method) {
                     card.classList.add('selected');
                     // Get the display name from the card's span element
-                    selectedPaymentMethodName = card.querySelector('span').textContent;
+                    selectedPaymentMethodName = card.querySelector('span').textContent.trim();
                 } else {
                     card.classList.remove('selected');
                 }
@@ -707,42 +746,41 @@
             const selectedDetailElement = document.getElementById(method + '-details');
             if (selectedDetailElement) {
                 selectedDetailElement.classList.add('active');
-                paymentDetailsArea.style.justifyContent = 'flex-start'; // Align content to top-left
+                paymentDetailsArea.classList.add('has-details'); // Add class to style the container
             } else {
-                // If no matching details found, show placeholder
+                // If no matching details found, show placeholder again
                 detailsPlaceholder.style.display = 'block';
-                 paymentDetailsArea.style.justifyContent = 'center';
+                paymentDetailsArea.classList.remove('has-details');
             }
         }
 
         /**
-         * Performs validation and confirmation before proceeding to Step 2.
+         * Validates method selection, asks for user confirmation, and proceeds to Step 2 if confirmed.
          */
         function confirmAndGoToStep2() {
             // 1. Validation: Ensure a payment method was selected
             if (!selectedPaymentMethod) {
+                // Use a more user-friendly notification if possible, but alert is simple
                 alert("Please select a payment method first.");
+                // Scroll to the payment methods section for visibility
                 paymentMethodsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return; // Stop if no method selected
             }
 
-            // 2. Confirmation Dialog
+            // 2. Confirmation Dialog: Ask if payment was completed
             // Use the stored display name (e.g., "UPI ID", "Scan QR")
-            const confirmationMessage = `Have you completed the payment using ${selectedPaymentMethodName}?`;
+            const confirmationMessage = `Have you completed the payment using ${selectedPaymentMethodName}? \n\nYou will be asked for transaction details next.`;
 
             if (window.confirm(confirmationMessage)) {
-                // 3. If user confirms "Yes" (clicks OK), proceed to Step 2
+                // 3. If user confirms "Yes", proceed to Step 2
                 goToStep(2);
-            } else {
-                // 4. If user cancels "No", do nothing (stay on Step 1)
-                console.log("User cancelled proceeding to step 2.");
             }
+            // 4. If user cancels "No", do nothing (stay on Step 1)
         }
 
 
         /**
-         * Navigates between payment steps (1 and 2).
-         * This function is now called *after* confirmation in confirmAndGoToStep2.
+         * Navigates between payment steps (1 and 2) and updates indicators.
          * @param {number} stepNum - The step number to navigate to (1 or 2).
          */
         function goToStep(stepNum) {
@@ -758,122 +796,166 @@
 
             // --- Step 2 Logic ---
             } else if (stepNum === 2) {
-                // Move the validation part to confirmAndGoToStep2
-                // if (!selectedPaymentMethod && step1Div.classList.contains('active-step')) { ... }
+                // Basic check: Ensure we came from step 1 with a method selected
+                if (!selectedPaymentMethod && step1Div.classList.contains('active-step')) {
+                     console.error("Cannot proceed to step 2 without selecting a payment method.");
+                     alert("An error occurred. Please select a payment method again.");
+                     return; // Prevent moving to step 2 if state is inconsistent
+                }
 
                 step1Div.classList.remove("active-step");
                 step2Div.classList.add("active-step");
 
-                 // Update Step Indicators
-                indicatorStep1.classList.add('active'); // Keep step 1 active visually
+                 // Update Step Indicators (Keep step 1 visually active as completed)
+                indicatorStep1.classList.add('active');
                 indicatorStep2.classList.add('active');
                 indicatorSeparator.classList.add('active'); // Activate separator line
             }
 
-             // Scroll smoothly to the top of the page after changing steps
+             // Scroll smoothly to the top of the container after changing steps
+             // Use setTimeout to ensure DOM update is complete before scrolling
              setTimeout(() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 100);
+                const containerTop = document.querySelector('.payment-container').offsetTop;
+                 window.scrollTo({ top: containerTop - 20, behavior: 'smooth' }); // Scroll slightly above container
+            }, 100); // Small delay
         }
 
         /**
-         * Handles the submission of the confirmation form.
-         * Validates input and opens WhatsApp with pre-filled message.
+         * Handles the submission of the confirmation form (Step 2).
+         * Validates input and triggers WhatsApp message generation.
          * @param {Event} event - The form submission event.
          */
         function handleConfirmationSubmit(event) {
-             event.preventDefault();
-             sendWhatsApp();
+             event.preventDefault(); // Prevent default form submission
+             sendWhatsApp(); // Proceed to validate and send
         }
 
         /**
-         * Constructs and opens the WhatsApp message link.
+         * Validates form inputs, constructs the WhatsApp message, and opens the link.
          */
         function sendWhatsApp() {
-            // Get input elements
+            // Get input elements from the form
             const nameInput = document.getElementById("name");
             const purposeSelect = document.getElementById("purpose");
             const txnidInput = document.getElementById("txnid");
             // Use the globally stored selectedPaymentMethod code
             const mode = selectedPaymentMethod;
-            const orderId = "ORD" + Date.now();
+            const orderId = "ORD" + Date.now(); // Generate a simple unique ID
 
             // Get and trim values
             const name = nameInput.value.trim();
-            const purpose = purposeSelect.value;
+            const purpose = purposeSelect.value; // No trim needed for select
             const txnid = txnidInput.value.trim();
 
             // --- Input Validation ---
-            if (!name) { alert("Please enter Your Full Name."); nameInput.focus(); return; }
-            if (!purpose) { alert("Please select the Purpose of Payment."); purposeSelect.focus(); return; }
-            if (!txnid) { alert("Please enter the Transaction ID / Reference No."); txnidInput.focus(); return; }
-            if (!mode) {
+            let isValid = true;
+            let firstErrorElement = null;
+
+            if (!name) {
+                alert("Please enter Your Full Name.");
+                if (!firstErrorElement) firstErrorElement = nameInput;
+                isValid = false;
+            }
+            if (!purpose) {
+                 alert("Please select the Purpose of Payment.");
+                 if (!firstErrorElement) firstErrorElement = purposeSelect;
+                 isValid = false;
+            }
+            if (!txnid) {
+                 alert("Please enter the Transaction ID / Reference No.");
+                 if (!firstErrorElement) firstErrorElement = txnidInput;
+                 isValid = false;
+            }
+            if (!mode) { // Check if payment method is still selected (should be)
                  alert("Error: Payment method selection is missing. Please go back to Step 1.");
                  goToStep(1); // Go back to step 1 if mode is somehow lost
-                 return;
+                 if (!firstErrorElement) firstErrorElement = paymentMethodsContainer; // Focus container
+                 isValid = false;
              }
 
-            // --- Prepare WhatsApp Message ---
-            // Use the stored display name for the message
-            let modeDisplay = selectedPaymentMethodName || mode.toUpperCase(); // Fallback to code if name missing
+            // If any validation failed, focus the first problematic element and stop
+            if (!isValid) {
+                firstErrorElement?.focus();
+                return;
+            }
 
-            const msg = encodeURIComponent(
+            // --- Prepare WhatsApp Message ---
+            // Use the stored display name for the message, fallback to uppercase code
+            let modeDisplay = selectedPaymentMethodName || (mode ? mode.toUpperCase() : 'N/A');
+
+            // Construct the message body with clear formatting
+            const messageBody =
                 `🧾 *Payment Confirmation - Psychometrica ProPlus*\n\n` +
                 `👤 *Name:* ${name}\n` +
                 `💼 *Purpose:* ${purpose}\n` +
-                `💳 *Mode Used:* ${modeDisplay}\n` + // Use display name
+                `💳 *Mode Used:* ${modeDisplay}\n` +
                 `📎 *Txn ID/Ref:* ${txnid}\n` +
                 `🆔 *Internal Order ID:* ${orderId}\n\n` +
                 `------------------------------------\n` +
-                `*Please attach payment screenshot here in chat.* 🙏`
-            );
+                `*Please attach payment screenshot here in chat.* 🙏`;
 
-            const phone = "919284157202"; // Replace with actual number
-            const url = `https://wa.me/${phone}?text=${msg}`;
+            // Encode the message for the URL
+            const encodedMsg = encodeURIComponent(messageBody);
+
+            // Target WhatsApp number (Replace with your actual number)
+            const phone = "919284157202"; // IMPORTANT: Use the correct number
+            const url = `https://wa.me/${phone}?text=${encodedMsg}`;
 
             // --- Update Button State & Open Link ---
             const submitButton = confirmationForm.querySelector('button[type="submit"]');
-            const originalButtonHTML = submitButton.innerHTML;
+            const originalButtonHTML = submitButton.innerHTML; // Store original content
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening WhatsApp...';
-            submitButton.disabled = true;
+            submitButton.disabled = true; // Disable button during process
 
+            // Use setTimeout to allow the browser to update the button text before opening the link
             setTimeout(() => {
-                window.open(url, "_blank");
-                submitButton.innerHTML = originalButtonHTML;
-                submitButton.disabled = false;
-            }, 500);
+                window.open(url, "_blank"); // Open WhatsApp in a new tab/window
+
+                // Restore button after a short delay
+                 setTimeout(() => {
+                     submitButton.innerHTML = originalButtonHTML;
+                     submitButton.disabled = false;
+                 }, 1500); // Restore after 1.5 seconds
+
+            }, 300); // Short delay before opening link
         }
 
-        // --- Event Listeners ---
+        // --- Event Listeners Setup ---
 
-        // Add click listeners to payment method cards
-        methodCards.forEach(card => {
-            card.addEventListener('click', () => {
-                selectPaymentMethod(card.dataset.method);
-            });
-             // Add keydown listener for accessibility (Enter key)
-             card.addEventListener('keydown', (event) => {
-                 if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault(); // Prevent default space scroll
+        /**
+         * Attaches necessary event listeners when the DOM is fully loaded.
+         */
+        function initializePage() {
+            // Add click listeners to payment method cards
+            methodCards.forEach(card => {
+                card.addEventListener('click', () => {
                     selectPaymentMethod(card.dataset.method);
-                 }
-             });
-             // Make cards focusable
-             card.setAttribute('tabindex', '0');
-             card.setAttribute('role', 'button');
-        });
+                });
+                 // Add keydown listener for accessibility (Enter or Space key)
+                 card.addEventListener('keydown', (event) => {
+                     if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault(); // Prevent default space scroll/activation
+                        selectPaymentMethod(card.dataset.method);
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); // Ensure card is visible
+                     }
+                 });
+            });
 
-        // Attach listener to the confirmation form's submit event
-        confirmationForm.addEventListener('submit', handleConfirmationSubmit);
+            // Attach listener to the confirmation form's submit event
+            confirmationForm.addEventListener('submit', handleConfirmationSubmit);
 
-        // Initialize the page on load
-        document.addEventListener('DOMContentLoaded', () => {
-             // Start at Step 1 by default (already set via class 'active-step' in HTML)
-             // Ensure details area starts with placeholder
-             detailsPlaceholder.style.display = 'block';
-             detailContents.forEach(content => content.classList.remove('active'));
-             paymentDetailsArea.style.justifyContent = 'center';
-        });
+            // Ensure details area starts with placeholder visible and correct styling
+            detailsPlaceholder.style.display = 'block';
+            detailContents.forEach(content => content.classList.remove('active'));
+            paymentDetailsArea.classList.remove('has-details');
+
+            // Set initial focus (optional, e.g., focus the first method card)
+            // methodCards[0]?.focus();
+        }
+
+        // --- Initialization ---
+        // Run the initialization function once the DOM is ready
+        document.addEventListener('DOMContentLoaded', initializePage);
 
     </script>
 </body>

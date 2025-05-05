@@ -3,141 +3,528 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Your Payment – Psychometrica ProPlus</title>
+    <title>Secure Payment – Psychometrica ProPlus</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <style>
         :root {
-            --primary-dark: #1A2A57;
-            --primary-main: #2B3A67;
-            --primary-light: #5269a7;
-            --primary-bg: #f4f7fc;
-            --accent-main: #F9A826;
-            --text-dark: #212529;
-            --text-light: #f8f9fa;
-            --text-muted: #6c757d;
-            --bg-light: #f8f9fa;
-            --bg-white: #ffffff;
-            --border-color: #dee2e6;
-            --border-color-light: #e9ecef;
-            --border-radius-sm: 6px;
-            --border-radius-md: 10px;
-            --success: #28a745;
-            --whatsapp-green: #25D366;
-            --whatsapp-dark: #128C7E;
-            --shadow-sm: 0 2px 5px rgba(43, 58, 103, 0.07);
-            --shadow-md: 0 6px 18px rgba(43, 58, 103, 0.1);
-            --gap-xs: 4px;
-            --gap-sm: 8px;
-            --gap-md: 16px;
-            --gap-lg: 24px;
-            --gap-xl: 32px;
-            --font-primary: 'Poppins', sans-serif;
-            --transition-fast: 0.2s ease-out;
-            --transition-medium: 0.4s ease-out;
+            /* Professional Color Palette */
+            --color-primary: #2B3A67; /* Deep Blue */
+            --color-primary-dark: #1A2A57;
+            --color-primary-light: #5269a7;
+            --color-secondary: #F9A826; /* Accent Orange */
+            --color-secondary-dark: #e0941a;
+            --color-background: #f7f9fc; /* Light Grayish Blue */
+            --color-surface: #ffffff; /* White */
+            --color-text-primary: #1e293b; /* Dark Gray */
+            --color-text-secondary: #475569; /* Medium Gray */
+            --color-text-muted: #94a3b8; /* Light Gray */
+            --color-text-on-primary: #ffffff; /* White text on dark blue */
+            --color-text-on-primary-muted: #c7d2fe; /* Lighter text on dark blue */
+            --color-border: #e2e8f0; /* Light Gray Border */
+            --color-border-focus: var(--color-primary-light);
+            --color-success: #16a34a; /* Green */
+            --color-whatsapp: #25D366;
+            --color-whatsapp-dark: #128C7E;
+            --color-error: #dc2626; /* Red */
+
+            /* Layout & Styling */
+            --font-family-base: 'Inter', sans-serif;
+            --border-radius-sm: 4px;
+            --border-radius-md: 8px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --spacing-1: 4px;
+            --spacing-2: 8px;
+            --spacing-3: 12px;
+            --spacing-4: 16px;
+            --spacing-5: 20px;
+            --spacing-6: 24px;
+            --spacing-8: 32px;
+            --spacing-10: 40px;
+            --transition-base: 0.2s ease-in-out;
         }
 
+        /* Base & Reset */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        html { scroll-behavior: smooth; }
-
+        html { scroll-behavior: smooth; font-size: 16px; }
         body {
-            font-family: var(--font-primary); background-color: var(--primary-bg);
-            color: var(--text-dark); line-height: 1.65; padding: var(--gap-lg);
-            display: flex; justify-content: center; align-items: center;
+            font-family: var(--font-family-base);
+            background-color: var(--color-background);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            padding: var(--spacing-6);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
             min-height: 100vh;
         }
 
+        /* Main Payment Container */
         .payment-container {
-            background-color: var(--bg-white); padding: var(--gap-xl);
-            max-width: 600px; width: 100%; margin: var(--gap-md) auto;
-            border-radius: var(--border-radius-md); box-shadow: var(--shadow-md);
-            text-align: center; overflow: hidden; position: relative;
+            background-color: var(--color-surface);
+            padding: 0; /* Remove padding to allow header full width */
+            max-width: 550px; /* Narrower for focused look */
+            width: 100%;
+            margin: var(--spacing-6) auto;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            overflow: hidden; /* Important for border-radius on header */
+            position: relative;
+            border: 1px solid var(--color-border);
         }
 
-        .logo-container { margin-bottom: var(--gap-lg); }
-        .logo-container img { max-width: 160px; height: auto; }
+        /* --- HEADER STYLES (ICON REMOVED) --- */
+        .page-header {
+            background-color: var(--color-primary); /* Dark blue background */
+            color: var(--color-text-on-primary); /* White text */
+            padding: var(--spacing-5) var(--spacing-5); /* Reduced padding slightly */
+            text-align: center;
+            margin-bottom: var(--spacing-6); /* Reduced space below header */
+        }
+        /* Removed icon style */
+        .page-header h1 {
+            font-size: 1.6rem; /* Larger brand name */
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
+        .page-header h1 .pro-plus {
+            font-weight: 500; /* Slightly lighter weight for "Pro Plus" */
+            color: var(--color-secondary); /* Accent color */
+            margin-left: var(--spacing-1);
+        }
+        .page-header .tagline {
+            font-size: 0.9rem;
+            color: var(--color-text-on-primary-muted); /* Lighter text color */
+            margin-top: var(--spacing-1);
+            font-weight: 400;
+        }
+        /* --- END HEADER STYLES --- */
 
-        .payment-container h2 { color: var(--primary-dark); margin-bottom: var(--gap-sm); font-weight: 600; font-size: 1.6rem; }
-        .payment-container h3 { color: var(--primary-main); margin-bottom: var(--gap-lg); font-weight: 500; font-size: 1.1rem; }
-        .payment-container .step-subtitle { color: var(--text-muted); font-size: 0.95rem; margin-bottom: var(--gap-xl); }
+        /* Content Padding (Applied to sections inside container) */
+        .payment-content {
+            padding: 0 var(--spacing-8) var(--spacing-8) var(--spacing-8); /* Add padding back to content area */
+        }
+
+        /* --- NEW LOGO STYLES (Inside Content) --- */
+        .content-logo-container {
+            margin-bottom: var(--spacing-6); /* Space below logo */
+            text-align: center; /* Center the logo */
+        }
+        .content-logo {
+            max-width: 150px; /* Adjust size as needed */
+            height: auto;
+        }
+        /* --- END NEW LOGO STYLES --- */
+
+        /* Headings & Subtitles (Inside payment-content) */
+        .payment-content h2 {
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-2);
+            font-weight: 600;
+            font-size: 1.5rem; /* 24px */
+        }
+        .payment-content h3 { /* Sub-section headings */
+            color: var(--color-primary);
+            margin-top: var(--spacing-6);
+            margin-bottom: var(--spacing-4);
+            font-weight: 600;
+            font-size: 1.125rem; /* 18px */
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+         .payment-content h3 i {
+             color: var(--color-primary-light);
+         }
+        .payment-content .step-subtitle {
+            color: var(--color-text-secondary);
+            font-size: 1rem; /* 16px */
+            margin-bottom: var(--spacing-6);
+            max-width: 95%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Step Indicator (Simplified) */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: var(--spacing-8);
+            gap: var(--spacing-2);
+            padding-bottom: var(--spacing-4);
+            border-bottom: 1px solid var(--color-border);
+        }
+        .step-indicator .step {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            color: var(--color-text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: var(--spacing-1) var(--spacing-2);
+            border-radius: var(--border-radius-md);
+            transition: all var(--transition-base);
+        }
+        .step-indicator .step .step-number {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--color-border);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            background-color: var(--color-surface);
+            color: var(--color-text-muted);
+            transition: all var(--transition-base);
+        }
+        .step-indicator .step.active {
+            color: var(--color-primary);
+            font-weight: 600;
+        }
+        .step-indicator .step.active .step-number {
+            border-color: var(--color-primary);
+            background-color: var(--color-primary);
+            color: var(--color-surface);
+        }
+        .step-indicator .step-separator {
+            height: 2px;
+            width: 40px;
+            background-color: var(--color-border);
+            flex-shrink: 0;
+            transition: background-color var(--transition-base);
+        }
+        .step-indicator .step-separator.active {
+             background-color: var(--color-primary);
+        }
 
 
-        /* Step Indicator */
-        .step-indicator { display: flex; justify-content: center; margin-bottom: var(--gap-xl); position: relative; width: 60%; margin-left: auto; margin-right: auto; }
-        .step-indicator::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background-color: var(--border-color); transform: translateY(-50%); z-index: 1; }
-        .step-indicator::after { content: ''; position: absolute; top: 50%; left: 0; height: 2px; background-color: var(--primary-main); transform: translateY(-50%); z-index: 2; width: 0%; /* Start at 0% */ transition: width var(--transition-medium); }
-        .step-indicator.step-2::after { width: 100%; } /* Fill in step 2 */
-        .step-indicator .step { position: relative; z-index: 3; width: 30px; height: 30px; background-color: var(--bg-white); border: 2px solid var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--text-muted); transition: all var(--transition-medium); }
-        .step-indicator .step.active { border-color: var(--primary-main); background-color: var(--primary-main); color: var(--text-light); }
-        .step-indicator .step:first-child { margin-right: auto; }
-        .step-indicator .step:last-child { margin-left: auto; }
+        /* Step Container Styling */
+        .payment-step {
+            display: none;
+            animation: stepFadeIn 0.4s ease-out;
+        }
+        .payment-step.active-step { display: block; }
+        @keyframes stepFadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-        /* Step Styling */
-        .payment-step { display: block; }
-        /* JS will handle display: none / block */
+        /* Payment Method Selection (Cards) */
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+        }
+        .method-card {
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            background-color: var(--color-surface);
+            position: relative; /* For checkmark */
+        }
+        .method-card:hover {
+            border-color: var(--color-primary-light);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-2px);
+        }
+        .method-card.selected {
+            border-color: var(--color-primary);
+            background-color: #eff6ff; /* Light blue background */
+            box-shadow: var(--shadow-md);
+        }
+        .method-card i {
+            font-size: 1.5rem; /* Larger icons */
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-2);
+            display: block;
+        }
+        .method-card span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            display: block;
+        }
+        /* Checkmark for selected card */
+        .method-card.selected::after {
+            content: '\f00c'; /* Font Awesome check */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            color: var(--color-primary);
+            background-color: var(--color-surface);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
 
-        /* Form Styling */
-        .form-group { margin-bottom: var(--gap-lg); text-align: left; }
-        label { display: block; font-weight: 500; margin-bottom: var(--gap-sm); font-size: 0.9rem; color: var(--primary-dark); }
-        input[type="text"], input[type="file"], select { width: 100%; padding: 12px 18px; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); font-family: inherit; font-size: 1rem; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); background-color: var(--bg-white); }
-        input[type="file"] { padding: 8px 10px; cursor: pointer; }
-        input[type="file"]::file-selector-button { margin-right: var(--gap-md); padding: 8px 15px; border: none; background-color: var(--primary-light); color: var(--text-light); border-radius: var(--border-radius-sm); cursor: pointer; transition: background-color var(--transition-fast); font-weight: 500; font-family: var(--font-primary); }
-        input[type="file"]::file-selector-button:hover { background-color: var(--primary-main); }
-        input[type="text"]:focus, select:focus { outline: none; border-color: var(--primary-main); box-shadow: 0 0 0 4px rgba(43, 58, 103, 0.1); }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 16px; padding-right: 45px; cursor: pointer; }
 
-        /* Payment Method Details - Card Style */
-        .payment-details { margin-top: var(--gap-md); padding: var(--gap-lg); background-color: var(--bg-white); border-radius: var(--border-radius-md); border: 1px solid var(--border-color-light); text-align: left; display: none; animation: fadeIn 0.4s ease-out; box-shadow: var(--shadow-sm); margin-bottom: var(--gap-md); }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .payment-details.active { display: block; }
-        .payment-details h4 { font-size: 1rem; font-weight: 600; color: var(--primary-main); margin-bottom: var(--gap-md); border-bottom: 1px solid var(--border-color-light); padding-bottom: var(--gap-sm); display: flex; align-items: center; gap: var(--gap-sm); }
-        .payment-details h4 i { color: var(--primary-light); }
-        .payment-details p { margin-bottom: var(--gap-sm); font-size: 0.95rem; word-wrap: break-word; display: flex; justify-content: space-between; flex-wrap: wrap; }
-        .payment-details p strong { color: var(--text-dark); font-weight: 500; min-width: auto; margin-right: var(--gap-sm); }
-        .payment-details p span.value { color: var(--text-muted); font-weight: 400; text-align: right; word-break: break-all; }
-        .payment-details img { display: block; max-width: 180px; height: auto; margin: var(--gap-md) auto; border: none; padding: 0; background-color: transparent; }
-        .upi-link { display: inline-flex; align-items: center; gap: var(--gap-sm); margin-top: var(--gap-md); padding: 10px 18px; background-color: var(--primary-light); color: var(--text-light); border-radius: var(--border-radius-sm); text-decoration: none; font-weight: 500; transition: background-color var(--transition-fast); font-size: 0.9rem; }
-        .upi-link:hover { background-color: var(--primary-main); }
-        .upi-link i { font-size: 0.9em; }
+        /* Payment Details Display Area */
+        .payment-details-area {
+            margin-top: var(--spacing-6);
+            padding: var(--spacing-5);
+            background-color: var(--color-background); /* Subtle background */
+            border-radius: var(--border-radius-md);
+            border: 1px solid var(--color-border);
+            text-align: left;
+            min-height: 150px; /* Ensure space even when empty */
+            display: flex; /* Use flex for centering placeholder */
+            align-items: center;
+            justify-content: center;
+            transition: background-color var(--transition-base);
+        }
+        .payment-details-placeholder {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+        .payment-details-content {
+            display: none; /* Hidden until a method is selected */
+            width: 100%;
+            animation: detailsFadeIn 0.3s ease-out;
+        }
+        .payment-details-content.active {
+            display: block;
+        }
+         @keyframes detailsFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-        /* Mobile Number Section */
-        .mobile-pay { margin-top: var(--gap-lg); padding: var(--gap-md); background-color: var(--primary-bg); border: 1px solid var(--border-color-light); border-radius: var(--border-radius-sm); font-size: 0.95rem; color: var(--primary-dark); }
-        .mobile-pay strong { color: var(--primary-main); font-weight: 600; font-size: 1.1em; }
-        .mobile-pay i { margin-right: var(--gap-sm); color: var(--primary-main); }
+        .payment-details-content h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-4);
+            padding-bottom: var(--spacing-2);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+        .payment-details-content p {
+            margin-bottom: var(--spacing-3);
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: var(--spacing-1);
+        }
+        .payment-details-content p strong {
+            color: var(--color-text-primary);
+            font-weight: 500;
+            margin-right: var(--spacing-2);
+            flex-shrink: 0;
+        }
+        .payment-details-content p span.value {
+            font-weight: 400;
+            text-align: right;
+            word-break: break-all;
+            color: var(--color-text-primary); /* Make value clearer */
+        }
+        .payment-details-content img.qr-code {
+            display: block;
+            max-width: 180px;
+            height: auto;
+            margin: var(--spacing-4) auto;
+            border-radius: var(--border-radius-sm);
+        }
+        .upi-link {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-4);
+            padding: var(--spacing-2) var(--spacing-4);
+            background-color: var(--color-primary-light);
+            color: var(--color-surface);
+            border-radius: var(--border-radius-sm);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-base);
+            font-size: 0.9rem;
+        }
+        .upi-link:hover {
+            background-color: var(--color-primary);
+            transform: translateY(-1px);
+        }
+        .upi-link i { font-size: 1em; }
+
+        /* Form Styling (Step 2) */
+        .form-group {
+            margin-bottom: var(--spacing-5);
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-2);
+            font-size: 0.9rem;
+            color: var(--color-text-primary);
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: var(--spacing-3) var(--spacing-4);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius-md);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color var(--transition-base), box-shadow var(--transition-base);
+            background-color: var(--color-surface);
+            color: var(--color-text-primary);
+        }
+        input::placeholder { color: var(--color-text-muted); opacity: 0.9; }
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            border-color: var(--color-border-focus);
+            box-shadow: 0 0 0 3px rgba(43, 58, 103, 0.15);
+        }
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right var(--spacing-4) center;
+            background-size: 16px;
+            padding-right: var(--spacing-10);
+            cursor: pointer;
+        }
 
         /* Buttons */
-        .btn { background-color: var(--primary-main); color: white; padding: 14px 30px; border: none; border-radius: var(--border-radius-sm); font-size: 1rem; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); width: 100%; margin-top: var(--gap-lg); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; box-shadow: var(--shadow-sm); }
-        .btn:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-        .btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); }
-        .btn-whatsapp { background-color: var(--whatsapp-green); }
-        .btn-whatsapp:hover { background-color: var(--whatsapp-dark); }
+        .btn {
+            background-color: var(--color-primary);
+            color: var(--color-surface);
+            padding: var(--spacing-3) var(--spacing-6);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: 1rem;
+            font-weight: 600; /* Bolder buttons */
+            cursor: pointer;
+            transition: all var(--transition-base);
+            width: 100%;
+            margin-top: var(--spacing-6);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-2);
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn:hover {
+            background-color: var(--color-primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+        /* Primary Action Button (Accent Color) */
+        .btn-primary-action {
+             background-color: var(--color-secondary);
+             color: var(--color-primary-dark); /* Dark text on orange */
+        }
+        .btn-primary-action:hover {
+             background-color: var(--color-secondary-dark);
+             box-shadow: var(--shadow-md);
+        }
+        /* WhatsApp Button */
+        .btn-whatsapp {
+            background-color: var(--color-whatsapp);
+            color: var(--color-surface);
+        }
+        .btn-whatsapp:hover {
+            background-color: var(--color-whatsapp-dark);
+        }
         .btn i { font-size: 1.1em; }
-        .btn-secondary { background-color: var(--bg-light); color: var(--primary-main); border: 1px solid var(--border-color); box-shadow: none; font-weight: 500; }
-        .btn-secondary:hover { background-color: var(--border-color-light); transform: translateY(-1px); box-shadow: var(--shadow-sm);}
+        /* Secondary Button (Back) */
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--color-primary);
+            border: 1px solid var(--color-border);
+            box-shadow: none;
+            font-weight: 500;
+        }
+        .btn-secondary:hover {
+            background-color: var(--color-background);
+            border-color: var(--color-primary-light);
+            box-shadow: var(--shadow-sm);
+        }
 
-        /* Confirmation Specific */
-        .confirmation-note { font-size: 0.9rem; color: var(--text-muted); margin-bottom: var(--gap-lg); background-color: var(--primary-bg); padding: var(--gap-md); border-radius: var(--border-radius-sm); border-left: 4px solid var(--accent-main); text-align: left; }
-        .confirmation-note label { color: var(--primary-dark); font-weight: 600; }
-        .confirmation-note p { margin: var(--gap-sm) 0 0 0; color: var(--primary-dark); font-size: 0.9em; }
+        /* Confirmation Step Specific */
+        .confirmation-note {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-6);
+            background-color: #fffbeb; /* Light yellow background */
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            border-left: 4px solid var(--color-secondary);
+            text-align: left;
+        }
+        .confirmation-note strong { color: var(--color-text-primary); }
+        .confirmation-note i {
+            color: var(--color-secondary);
+            margin-right: var(--spacing-2);
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
 
-        .note { font-size: 0.85rem; color: var(--text-muted); margin-top: var(--gap-lg); }
+
+        /* Footer Note */
+        .footer-note {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: var(--spacing-8);
+            border-top: 1px solid var(--color-border);
+            padding-top: var(--spacing-4);
+        }
+         .footer-note i {
+             margin-right: var(--spacing-1);
+             color: var(--color-success);
+         }
 
         /* Responsive Adjustments */
         @media (max-width: 600px) {
-            body { padding: var(--gap-sm); }
-            .payment-container { padding: var(--gap-lg); }
-            input[type="text"], select, .btn { font-size: 1rem; }
-            .payment-container h2 { font-size: 1.4rem; }
-            .payment-container h3 { font-size: 1.1rem; }
-            .step-indicator { width: 80%; }
-            .payment-details p { flex-direction: column; align-items: flex-start; }
-            .payment-details p span.value { text-align: left; margin-top: var(--gap-xs); }
+            body { padding: var(--spacing-4); }
+            .payment-container { margin: var(--spacing-4) auto; }
+            .payment-content { padding: 0 var(--spacing-6) var(--spacing-6) var(--spacing-6); } /* Adjust content padding */
+            .payment-content h2 { font-size: 1.3rem; }
+            .payment-methods { grid-template-columns: 1fr 1fr; gap: var(--spacing-3); } /* 2 columns on smaller screens */
+            .method-card { padding: var(--spacing-3); }
+            .method-card i { font-size: 1.3rem; }
+            .method-card span { font-size: 0.85rem; }
+            .btn { padding: var(--spacing-3) var(--spacing-4); font-size: 0.95rem; }
+            .step-indicator { font-size: 0.8rem; }
+            .step-indicator .step-separator { width: 20px; }
+            .page-header { padding: var(--spacing-5); margin-bottom: var(--spacing-6); }
+            .page-header h1 { font-size: 1.4rem; }
+            .page-header .tagline { font-size: 0.85rem; }
+        }
+        @media (max-width: 400px) {
+             .payment-methods { grid-template-columns: 1fr; } /* Single column on very small screens */
+             .payment-content { padding: 0 var(--spacing-4) var(--spacing-4) var(--spacing-4); }
+             .page-header { padding: var(--spacing-4); }
         }
 
     </style>
@@ -145,228 +532,332 @@
 <body>
     <div class="payment-container">
 
-        <div id="step1" class="payment-step">
-            <div class="logo-container">
-                 <img src="paymentlogo.jpg" alt="Psychometrica ProPlus">
-            </div>
-             <div class="step-indicator" id="stepIndicator1"> <div class="step active" id="indicator1-step1">1</div>
-                <div class="step" id="indicator1-step2">2</div>
-            </div>
-            <h2>Step 1: Complete Your Payment</h2>
-            <p class="step-subtitle">Choose your preferred method below and make the payment. Then click 'Next'.</p>
+        <div class="page-header">
+            <h1>Psychometrica<span class="pro-plus">Pro Plus</span></h1>
+            <p class="tagline">Unlocking Potential, Shaping Futures</p>
+        </div>
 
-            <div class="form-group">
-                <label for="paymentMode">View Payment Details For:</label>
-                <select id="paymentMode" onchange="toggleMethod()">
-                    <option value="">-- Select Method --</option>
-                    <option value="upi">UPI ID</option>
-                    <option value="qr">Scan QR Code</option>
-                    <option value="bank">Bank Transfer (NEFT/IMPS)</option>
-                    <option value="mobile">Pay to Mobile Number</option>
-                </select>
-            </div>
+        <div class="payment-content">
 
-            <section id="upi-details" class="payment-details upi">
-                 <h4><i class="fa-solid fa-paper-plane"></i> Pay via UPI ID</h4>
-                 <p><strong>UPI ID:</strong> <span class="value">8888801437@ibl</span></p>
-                 <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App
-                </a>
-            </section>
-            <section id="qr-details" class="payment-details qr">
-                <h4><i class="fa-solid fa-qrcode"></i> Scan QR Code</h4>
-                <p>Scan this code using your preferred UPI App:</p>
-                 <img src="qr.jpeg" alt="Scan QR Code to Pay">
-            </section>
-            <section id="bank-details" class="payment-details bank">
-                <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer Details</h4>
-                <p><strong>Account Holder:</strong> <span class="value">Sachin Ashok Ambekar</span></p>
-                <p><strong>Bank Name:</strong> <span class="value">IDBI Bank</span></p>
-                <p><strong>Account No:</strong> <span class="value">0778104000013606</span></p>
-                <p><strong>IFSC Code:</strong> <span class="value">IBKL0000778</span></p>
-                <p><strong>Branch:</strong> <span class="value">Pashan Pune</span></p>
-                <p><strong>Account Type:</strong> <span class="value">Saving Account</span></p>
-            </section>
-            <section id="mobile-details" class="payment-details mobile">
-                 <h4><i class="fa-solid fa-mobile-screen-button"></i> Pay to Mobile Number</h4>
-                 <p>You can pay directly using GPay, PhonePe, etc., to:</p>
-                 <p style="text-align:center; margin-top: var(--gap-md); font-size: 1.2em; font-weight: 600; color: var(--primary-dark);">
-                    <i class="fa-solid fa-mobile-screen"></i> 8888801437
-                 </p>
-            </section>
-
-            <div class="mobile-pay">
-                 <p><i class="fa-solid fa-circle-info"></i> Or pay directly to Mobile: <strong>8888801437</strong> (GPay, PhonePe etc.)</p>
-            </div>
-
-            <button type="button" class="btn" onclick="goToStep(2)">
-                Next: Confirm Payment Details <i class="fa-solid fa-arrow-right"></i>
-            </button>
-        </div> <div id="step2" class="payment-step"> <div class="step-indicator step-2" id="stepIndicator2"> <div class="step active" id="indicator2-step1">1</div>
-                <div class="step active" id="indicator2-step2">2</div>
-            </div>
-            <h2>Step 2: Confirm Your Payment</h2>
-             <p class="step-subtitle">Please provide the details below and send via WhatsApp.</p>
-
-            <form class="confirmation-form" id="confirmationForm">
-                <h3><i class="fa-solid fa-receipt"></i> Enter Payment Details</h3>
-                <div class="form-group">
-                    <label for="name">Your Full Name</label>
-                    <input type="text" id="name" placeholder="Enter the name used for payment" required>
+            <div class="step-indicator">
+                <div class="step active" id="indicator-step1">
+                    <span class="step-number">1</span>
+                    <span>Select Method</span>
                 </div>
-                <div class="form-group">
-                     <label for="purpose">Purpose of Payment</label>
-                     <select id="purpose" required>
-                         <option value="">-- Select Purpose --</option>
-                         <option value="New Licence Purchase">New Licence Purchase</option>
-                         <option value="Additional Licence">Additional Licence</option>
-                         <option value="Renewal">Renewal</option>
-                         <option value="Other">Other</option>
-                     </select>
+                <div class="step-separator" id="indicator-separator"></div>
+                <div class="step" id="indicator-step2">
+                    <span class="step-number">2</span>
+                    <span>Confirm Details</span>
                 </div>
-                <div class="form-group">
-                     <label for="txnid">Transaction ID / Reference No.</label>
-                    <input type="text" id="txnid" placeholder="Enter the successful transaction ID" required>
+            </div>
+
+            <div id="step1" class="payment-step active-step"> <div class="content-logo-container">
+                     <img src="paymentlogo.jpg" alt="Psychometrica ProPlus Logo" class="content-logo">
                 </div>
-                <div class="form-group confirmation-note">
-                    <label for="screenshotInfo"><i class="fa-solid fa-camera"></i> Share Screenshot via WhatsApp</label>
-                     <p>After clicking 'Send Confirmation', please **attach the payment screenshot directly in the WhatsApp chat** that opens. This helps greatly with verification!</p>
+
+                <h2>Choose Your Payment Method</h2>
+                <p class="step-subtitle">Select how you'd like to pay below.</p>
+
+                <div class="payment-methods" id="paymentMethods">
+                    <div class="method-card" data-method="upi">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>UPI ID</span>
+                    </div>
+                    <div class="method-card" data-method="qr">
+                        <i class="fa-solid fa-qrcode"></i>
+                        <span>Scan QR</span>
+                    </div>
+                    <div class="method-card" data-method="bank">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <span>Bank Transfer</span>
+                    </div>
+                    <div class="method-card" data-method="mobile">
+                        <i class="fa-solid fa-mobile-screen-button"></i>
+                        <span>Mobile No.</span>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-whatsapp">
-                    <i class="fab fa-whatsapp"></i> Send Confirmation via WhatsApp
+
+                <div class="payment-details-area" id="paymentDetailsArea">
+                    <div class="payment-details-placeholder" id="detailsPlaceholder">
+                        Select a payment method above to see details.
+                    </div>
+
+                    <div id="upi-details" class="payment-details-content">
+                         <h4><i class="fa-solid fa-paper-plane"></i> Pay via UPI ID</h4>
+                         <p><strong>UPI ID:</strong> <span class="value">8888801437@ibl</span></p>
+                         <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App
+                        </a>
+                    </div>
+                    <div id="qr-details" class="payment-details-content">
+                        <h4><i class="fa-solid fa-qrcode"></i> Scan QR Code</h4>
+                        <p>Scan this code using your preferred UPI App:</p>
+                         <img src="qr.jpeg" alt="Scan QR Code to Pay Psychometrica" class="qr-code">
+                    </div>
+                    <div id="bank-details" class="payment-details-content">
+                        <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer Details</h4>
+                        <p><strong>Account Holder:</strong> <span class="value">Sachin Ashok Ambekar</span></p>
+                        <p><strong>Bank Name:</strong> <span class="value">IDBI Bank</span></p>
+                        <p><strong>Account No:</strong> <span class="value">0778104000013606</span></p>
+                        <p><strong>IFSC Code:</strong> <span class="value">IBKL0000778</span></p>
+                        <p><strong>Branch:</strong> <span class="value">Pashan Pune</span></p>
+                        <p><strong>Account Type:</strong> <span class="value">Saving Account</span></p>
+                    </div>
+                    <div id="mobile-details" class="payment-details-content">
+                         <h4><i class="fa-solid fa-mobile-screen-button"></i> Pay to Mobile Number</h4>
+                         <p>You can pay directly using GPay, PhonePe, Paytm, etc., to the mobile number:</p>
+                         <p style="text-align:center; margin-top: var(--spacing-4); font-size: 1.2em; font-weight: 600; color: var(--color-primary);">
+                            <i class="fa-solid fa-mobile-screen"></i> 8888801437
+                         </p>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary-action" onclick="goToStep(2)">
+                    Next: Confirm Details <i class="fa-solid fa-arrow-right"></i>
                 </button>
-            </form>
+            </div>
 
-            <button type="button" class="btn btn-secondary" style="margin-top: var(--gap-md);" onclick="goToStep(1)">
-                <i class="fa-solid fa-arrow-left"></i> Back to Payment Methods
-            </button>
-        </div> <p class="note">Your payment helps us continue providing valuable insights. Thank you!</p>
+            <div id="step2" class="payment-step"> <h2>Confirm Your Payment Details</h2>
+                 <p class="step-subtitle">Enter the information below and send via WhatsApp for verification.</p>
 
-    </div> <script>
-        // Get references to elements needed multiple times
+                <form class="confirmation-form" id="confirmationForm">
+                    <h3><i class="fa-solid fa-receipt"></i> Your Information</h3>
+                    <div class="form-group">
+                        <label for="name">Your Full Name</label>
+                        <input type="text" id="name" placeholder="Enter the name used for payment" required>
+                    </div>
+                    <div class="form-group">
+                         <label for="purpose">Purpose of Payment</label>
+                         <select id="purpose" required>
+                             <option value="">-- Select Purpose --</option>
+                             <option value="New Licence Purchase">New Licence Purchase</option>
+                             <option value="Additional Licence">Additional Licence</option>
+                             <option value="Renewal">Renewal</option>
+                             <option value="Other">Other (Specify if possible)</option>
+                         </select>
+                    </div>
+                    <div class="form-group">
+                         <label for="txnid">Transaction ID / Reference No.</label>
+                        <input type="text" id="txnid" placeholder="Enter the successful transaction ID" required>
+                    </div>
+
+                    <div class="confirmation-note">
+                        <i class="fa-solid fa-camera-retro"></i>
+                        <span>After clicking below, please <strong>attach the payment screenshot</strong> in the WhatsApp chat that opens.</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Send Confirmation via WhatsApp
+                    </button>
+                </form>
+
+                <button type="button" class="btn btn-secondary" style="margin-top: var(--spacing-4);" onclick="goToStep(1)">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Payment Methods
+                </button>
+            </div>
+
+            <p class="footer-note">
+                <i class="fa-solid fa-lock"></i> Secure Transaction Process
+            </p>
+
+        </div> </div> <script>
+        // --- Element References ---
         const step1Div = document.getElementById('step1');
         const step2Div = document.getElementById('step2');
-        const stepIndicator1 = document.getElementById('stepIndicator1'); // Indicator in step 1
-        const stepIndicator2 = document.getElementById('stepIndicator2'); // Indicator in step 2
-        const indicator1_step1 = document.getElementById('indicator1-step1');
-        const indicator1_step2 = document.getElementById('indicator1-step2');
-        const indicator2_step1 = document.getElementById('indicator2-step1');
-        const indicator2_step2 = document.getElementById('indicator2-step2');
-        const paymentModeSelect = document.getElementById('paymentMode');
+        const indicatorStep1 = document.getElementById('indicator-step1');
+        const indicatorStep2 = document.getElementById('indicator-step2');
+        const indicatorSeparator = document.getElementById('indicator-separator');
+        const paymentMethodsContainer = document.getElementById('paymentMethods');
+        const paymentDetailsArea = document.getElementById('paymentDetailsArea');
+        const detailsPlaceholder = document.getElementById('detailsPlaceholder');
         const confirmationForm = document.getElementById('confirmationForm');
+        const methodCards = paymentMethodsContainer.querySelectorAll('.method-card');
+        const detailContents = paymentDetailsArea.querySelectorAll('.payment-details-content');
 
-        function toggleMethod() {
-            const selectedValue = paymentModeSelect.value;
-            const detailSections = document.querySelectorAll(".payment-details");
-            detailSections.forEach(section => {
-                section.classList.remove("active");
-            });
-            if (selectedValue) {
-                const selectedSection = document.getElementById(selectedValue + "-details");
-                if (selectedSection) {
-                    selectedSection.classList.add("active");
+        let selectedPaymentMethod = null; // Variable to store the selected method's value ('upi', 'qr', etc.)
+
+        // --- Functions ---
+
+        /**
+         * Updates the display based on the selected payment method card.
+         * @param {string} method - The data-method value of the selected card.
+         */
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method; // Store the selected method
+
+            // Update card appearance
+            methodCards.forEach(card => {
+                if (card.dataset.method === method) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
                 }
+            });
+
+            // Hide placeholder and all detail contents initially
+            detailsPlaceholder.style.display = 'none';
+            detailContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show the specific detail content for the selected method
+            const selectedDetailElement = document.getElementById(method + '-details');
+            if (selectedDetailElement) {
+                selectedDetailElement.classList.add('active');
+                paymentDetailsArea.style.justifyContent = 'flex-start'; // Align content to top-left
+            } else {
+                // If no matching details found (shouldn't happen with current setup), show placeholder
+                detailsPlaceholder.style.display = 'block';
+                 paymentDetailsArea.style.justifyContent = 'center';
             }
         }
 
+        /**
+         * Navigates between payment steps (1 and 2).
+         * @param {number} stepNum - The step number to navigate to (1 or 2).
+         */
         function goToStep(stepNum) {
+            // --- Step 1 Logic ---
             if (stepNum === 1) {
-                step1Div.style.display = "block";
-                step2Div.style.display = "none";
-                // Update indicators
-                stepIndicator1.classList.remove('step-2');
-                indicator1_step1.classList.add('active');
-                indicator1_step2.classList.remove('active');
-                stepIndicator2.classList.remove('step-2'); // Reset step 2 indicator as well
-                indicator2_step1.classList.add('active');
-                indicator2_step2.classList.remove('active');
+                step1Div.classList.add("active-step");
+                step2Div.classList.remove("active-step");
 
+                // Update Step Indicators
+                indicatorStep1.classList.add('active');
+                indicatorStep2.classList.remove('active');
+                indicatorSeparator.classList.remove('active');
+
+            // --- Step 2 Logic ---
             } else if (stepNum === 2) {
-                 if (!paymentModeSelect.value) {
-                    alert("Please select a payment method from the dropdown first.");
-                    paymentModeSelect.focus();
-                    return;
+                 // Validation: Ensure a payment method was selected before proceeding
+                 if (!selectedPaymentMethod && step1Div.classList.contains('active-step')) {
+                    // Replace alert with a more professional notification if possible
+                    alert("Please select a payment method first.");
+                    // Optionally, scroll to the payment methods section
+                    paymentMethodsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return; // Stop navigation
                  }
-                step1Div.style.display = "none";
-                step2Div.style.display = "block";
-                 // Update indicators
-                stepIndicator1.classList.add('step-2'); // Show progress on step 1 indicator
-                indicator1_step1.classList.add('active');
-                indicator1_step2.classList.add('active');
-                stepIndicator2.classList.add('step-2'); // Show progress on step 2 indicator
-                indicator2_step1.classList.add('active');
-                indicator2_step2.classList.add('active');
+
+                step1Div.classList.remove("active-step");
+                step2Div.classList.add("active-step");
+
+                 // Update Step Indicators
+                indicatorStep1.classList.add('active'); // Keep step 1 active visually
+                indicatorStep2.classList.add('active');
+                indicatorSeparator.classList.add('active'); // Activate separator line
             }
-             // Scroll to top of container smoothly after step change
-             document.querySelector('.payment-container').scrollIntoView({ behavior: 'smooth', block: 'start'});
+
+             // Scroll smoothly to the top of the container after changing steps
+             setTimeout(() => {
+                 // Scroll the main body/window, not the container itself if header is fixed
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // If header isn't fixed, scroll container into view
+                // document.querySelector('.payment-container').scrollIntoView({
+                //     behavior: 'smooth',
+                //     block: 'start'
+                // });
+            }, 100);
         }
 
-        // Attach event listener to form submission
-        confirmationForm.addEventListener('submit', function(event) {
+        /**
+         * Handles the submission of the confirmation form.
+         * Validates input and opens WhatsApp with pre-filled message.
+         * @param {Event} event - The form submission event.
+         */
+        function handleConfirmationSubmit(event) {
              event.preventDefault();
              sendWhatsApp();
-        });
+        }
 
+        /**
+         * Constructs and opens the WhatsApp message link.
+         */
         function sendWhatsApp() {
+            // Get input elements
             const nameInput = document.getElementById("name");
-            const purposeSelect = document.getElementById("purpose"); // Changed to purposeSelect
+            const purposeSelect = document.getElementById("purpose");
             const txnidInput = document.getElementById("txnid");
-            const mode = paymentModeSelect.value;
+            // Use the globally stored selectedPaymentMethod
+            const mode = selectedPaymentMethod;
             const orderId = "ORD" + Date.now();
 
+            // Get and trim values
             const name = nameInput.value.trim();
-            const purpose = purposeSelect.value; // Get value from select
+            const purpose = purposeSelect.value;
             const txnid = txnidInput.value.trim();
 
-            // Validation
-            if (!name) { alert("Please enter Your Name."); nameInput.focus(); return; }
-            if (!purpose) { alert("Please select the Purpose of Payment."); purposeSelect.focus(); return; } // Changed validation message
+            // --- Input Validation ---
+            if (!name) { alert("Please enter Your Full Name."); nameInput.focus(); return; }
+            if (!purpose) { alert("Please select the Purpose of Payment."); purposeSelect.focus(); return; }
             if (!txnid) { alert("Please enter the Transaction ID / Reference No."); txnidInput.focus(); return; }
             if (!mode) {
-                 alert("Error: Payment method selection missing. Please go back.");
+                 alert("Error: Payment method selection is missing. Please go back to Step 1.");
                  goToStep(1);
                  return;
              }
 
+            // --- Prepare WhatsApp Message ---
             let modeDisplay = mode.toUpperCase();
              if (mode === 'bank') modeDisplay = 'Bank Transfer';
              if (mode === 'qr') modeDisplay = 'QR Scan';
              if (mode === 'mobile') modeDisplay = 'Mobile Transfer';
 
             const msg = encodeURIComponent(
-                `🧾 *Payment Confirmation*\n\n` +
+                `🧾 *Payment Confirmation - Psychometrica ProPlus*\n\n` +
                 `👤 *Name:* ${name}\n` +
-                `💼 *Purpose:* ${purpose}\n` + // Use selected purpose
+                `💼 *Purpose:* ${purpose}\n` +
                 `💳 *Mode Used:* ${modeDisplay}\n` +
                 `📎 *Txn ID/Ref:* ${txnid}\n` +
                 `🆔 *Internal Order ID:* ${orderId}\n\n` +
                 `------------------------------------\n` +
-                `*Please attach payment screenshot here in chat if possible.* 🙏`
+                `*Please attach payment screenshot here in chat.* 🙏`
             );
 
-            const phone = "919284157202";
+            const phone = "919284157202"; // Replace with actual number
             const url = `https://wa.me/${phone}?text=${msg}`;
 
+            // --- Update Button State & Open Link ---
             const submitButton = confirmationForm.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
+            const originalButtonHTML = submitButton.innerHTML;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening WhatsApp...';
             submitButton.disabled = true;
 
             setTimeout(() => {
                 window.open(url, "_blank");
-                submitButton.innerHTML = originalButtonText;
+                submitButton.innerHTML = originalButtonHTML;
                 submitButton.disabled = false;
             }, 500);
         }
 
-        // Initialize to show Step 1 on page load
+        // --- Event Listeners ---
+
+        // Add click listeners to payment method cards
+        methodCards.forEach(card => {
+            card.addEventListener('click', () => {
+                selectPaymentMethod(card.dataset.method);
+            });
+             // Add keydown listener for accessibility (Enter key)
+             card.addEventListener('keydown', (event) => {
+                 if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault(); // Prevent default space scroll
+                    selectPaymentMethod(card.dataset.method);
+                 }
+             });
+             // Make cards focusable
+             card.setAttribute('tabindex', '0');
+             card.setAttribute('role', 'button');
+        });
+
+        // Attach listener to the confirmation form's submit event
+        confirmationForm.addEventListener('submit', handleConfirmationSubmit);
+
+        // Initialize the page on load
         document.addEventListener('DOMContentLoaded', () => {
-             goToStep(1);
-             // Hide all payment details initially
-              const detailSections = document.querySelectorAll(".payment-details");
-              detailSections.forEach(section => {
-                  section.classList.remove("active");
-              });
+             // Start at Step 1 by default (already set via class 'active-step' in HTML)
+             // Ensure details area starts with placeholder
+             detailsPlaceholder.style.display = 'block';
+             detailContents.forEach(content => content.classList.remove('active'));
+             paymentDetailsArea.style.justifyContent = 'center';
         });
 
     </script>

@@ -128,7 +128,6 @@
             color: var(--color-text-on-primary);
             padding: var(--spacing-5) var(--spacing-6);
             text-align: center;
-            /* Removed margin-bottom, handled by notification area spacing */
         }
         .page-header h1 { font-size: 1.6rem; font-weight: 700; margin: 0; line-height: 1.2; }
         .page-header h1 .pro-plus { font-weight: 500; color: var(--color-secondary); margin-left: var(--spacing-1); }
@@ -136,7 +135,7 @@
 
         /* --- Content Area Padding --- */
         .payment-content {
-            padding: var(--spacing-6) var(--spacing-8) var(--spacing-8) var(--spacing-8); /* Added top padding */
+            padding: var(--spacing-6) var(--spacing-8) var(--spacing-8) var(--spacing-8);
         }
 
         /* --- Logo Inside Content --- */
@@ -183,14 +182,36 @@
         @keyframes detailsFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .payment-details-content h4 { font-size: 1rem; font-weight: 600; color: var(--color-primary); margin-bottom: var(--spacing-4); padding-bottom: var(--spacing-2); border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: var(--spacing-2); }
-        /* Ensure enough space for copy button */
         .payment-details-content p { margin-bottom: var(--spacing-3); font-size: 0.95rem; color: var(--color-text-secondary); display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: var(--spacing-1); position: relative; }
         .payment-details-content p strong { color: var(--color-text-primary); font-weight: 500; margin-right: var(--spacing-2); flex-shrink: 0; }
         .payment-details-content p span.value { font-weight: 400; text-align: right; word-break: break-all; color: var(--color-text-primary); display: inline-block; padding-right: 30px; /* Space for copy button */ }
         .payment-details-content img.qr-code { display: block; max-width: 180px; height: auto; margin: var(--spacing-4) auto; border-radius: var(--border-radius-sm); border: 1px solid var(--color-border); }
-        .upi-link { display: inline-flex; align-items: center; gap: var(--spacing-2); margin-top: var(--spacing-4); padding: var(--spacing-2) var(--spacing-4); background-color: var(--color-primary-light); color: var(--color-surface); border-radius: var(--border-radius-sm); text-decoration: none; font-weight: 500; transition: all var(--transition-base); font-size: 0.9rem; border: 1px solid transparent; }
+        /* UPI Link / Button Styling */
+        .upi-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center; /* Center content */
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-4);
+            padding: var(--spacing-2) var(--spacing-4);
+            background-color: var(--color-primary-light);
+            color: var(--color-surface);
+            border-radius: var(--border-radius-sm);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all var(--transition-base);
+            font-size: 0.9rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            width: auto; /* Adjust width as needed */
+            min-width: 150px; /* Ensure minimum width */
+        }
         .upi-link:hover, .upi-link:focus-visible { background-color: var(--color-primary); transform: translateY(-1px); outline: none; border-color: var(--color-primary-dark); }
         .upi-link i { font-size: 1em; }
+        /* Center align the link/button when needed */
+        .center-link { text-align: center; margin-top: var(--spacing-4); }
+
 
         /* --- Copy Button --- */
         .copy-btn {
@@ -207,11 +228,7 @@
             opacity: 0.7;
             transition: opacity var(--transition-base), color var(--transition-base);
         }
-        .copy-btn:hover, .copy-btn:focus {
-            color: var(--color-primary);
-            opacity: 1;
-            outline: none;
-        }
+        .copy-btn:hover, .copy-btn:focus { color: var(--color-primary); opacity: 1; outline: none; }
         .copy-btn i { margin-right: 2px; }
         .copy-btn .copy-text { display: none; }
         .copy-btn.copied { color: var(--color-success); }
@@ -228,30 +245,16 @@
         select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2394a3b8' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right var(--spacing-4) center; background-size: 16px; padding-right: var(--spacing-10); cursor: pointer; }
 
         /* Inline Form Validation Styles */
-        .form-group .error-message {
-            color: var(--color-error);
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-top: var(--spacing-1);
-            display: none; /* Hidden by default */
-        }
-        .form-group.invalid input,
-        .form-group.invalid select {
-            border-color: var(--color-border-error);
-        }
-        .form-group.invalid input:focus,
-        .form-group.invalid select:focus {
-             box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); /* Red focus ring */
-        }
-        .form-group.invalid .error-message {
-            display: block;
-        }
+        .form-group .error-message { color: var(--color-error); font-size: 0.8rem; font-weight: 500; margin-top: var(--spacing-1); display: none; }
+        .form-group.invalid input, .form-group.invalid select { border-color: var(--color-border-error); }
+        .form-group.invalid input:focus, .form-group.invalid select:focus { box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15); }
+        .form-group.invalid .error-message { display: block; }
 
         /* --- Buttons --- */
         .btn { background-color: var(--color-primary); color: var(--color-surface); padding: var(--spacing-3) var(--spacing-6); border: 1px solid transparent; border-radius: var(--border-radius-md); font-size: 1rem; font-weight: 600; cursor: pointer; transition: all var(--transition-base); width: 100%; margin-top: var(--spacing-6); display: inline-flex; align-items: center; justify-content: center; gap: var(--spacing-2); text-decoration: none; box-shadow: var(--shadow-sm); outline-offset: 2px; }
         .btn:hover { background-color: var(--color-primary-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
         .btn:focus-visible { outline: 2px solid var(--color-primary-light); box-shadow: var(--shadow-md); }
-        .btn:active { transform: translateY(0) scale(0.98); /* Subtle scale on click */ box-shadow: var(--shadow-sm); }
+        .btn:active { transform: translateY(0) scale(0.98); box-shadow: var(--shadow-sm); }
         /* Primary Action Button */
         .btn-primary-action { background-color: var(--color-secondary); color: var(--color-primary-dark); border-color: var(--color-secondary); }
         .btn-primary-action:hover { background-color: var(--color-secondary-dark); border-color: var(--color-secondary-dark); box-shadow: var(--shadow-md); }
@@ -371,14 +374,20 @@
                                 <i class="fa-regular fa-copy copy-icon"></i><span class="copy-text">Copied!</span>
                             </button>
                          </p>
-                         <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App
-                         </a>
+                         <div class="center-link"> <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App
+                            </a>
+                         </div>
                     </div>
                     <div id="qr-details" class="payment-details-content">
                         <h4><i class="fa-solid fa-qrcode"></i> Scan QR Code</h4>
-                        <p>Scan this code using your preferred UPI App:</p>
+                        <p>Scan this code using another device OR click below to pay:</p>
                          <img src="qr.jpeg" alt="Scan QR Code to Pay Psychometrica" class="qr-code" onerror="this.alt='QR Code Image Unavailable'; this.style.border='1px dashed #ccc';">
+                         <div class="center-link">
+                             <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link">
+                                <i class="fa-solid fa-mobile-screen-button"></i> Pay with UPI App
+                            </a>
+                         </div>
                     </div>
                     <div id="bank-details" class="payment-details-content">
                         <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer Details</h4>
@@ -435,6 +444,11 @@
                                 <i class="fa-regular fa-copy copy-icon"></i><span class="copy-text">Copied!</span>
                             </button>
                          </p>
+                         <div class="center-link">
+                            <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link">
+                               <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App (via Mobile No)
+                           </a>
+                        </div>
                     </div>
                 </div>
 
@@ -543,7 +557,11 @@
             }
 
             notificationArea.classList.add('show');
-            notificationArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Only scroll into view if it's an error, to avoid jumping on copy success
+            if (type === 'error') {
+                 notificationArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
 
             if (duration > 0) {
                 notificationTimeout = setTimeout(() => {
@@ -575,6 +593,8 @@
             try {
                 await navigator.clipboard.writeText(textToCopy);
                 button.classList.add('copied');
+                // Show subtle success feedback near the button maybe? Or rely on button text change
+                 showNotification(`${button.getAttribute('aria-label').replace('Copy ','')} copied!`, 'success', 2000); // Optional success message
                 setTimeout(() => button.classList.remove('copied'), 1500);
             } catch (err) {
                 console.error('Failed to copy text: ', err);
@@ -637,6 +657,7 @@
                 return;
             }
             const confirmationMessage = `Have you completed the payment using ${selectedPaymentMethodName}? \n\nYou will be asked for transaction details next.`;
+            // Use browser confirm for simplicity, replace with custom modal if needed
             if (window.confirm(confirmationMessage)) goToStep(2);
         }
 
@@ -756,7 +777,7 @@
                  });
             });
 
-            // Copy Button Listeners (now applies to all buttons with the class)
+            // Copy Button Listeners
             copyButtons.forEach(button => {
                 button.addEventListener('click', () => copyToClipboard(button));
             });
@@ -784,4 +805,4 @@
 
     </script>
 </body>
-</html>
+</ht

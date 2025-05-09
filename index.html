@@ -154,8 +154,28 @@
         @keyframes stepFadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- Payment Method Selection Cards --- */
-        .payment-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: var(--spacing-4); margin-bottom: var(--spacing-6); }
-        .method-card { border: 2px solid var(--color-border); border-radius: var(--border-radius-md); padding: var(--spacing-4); text-align: center; cursor: pointer; transition: all var(--transition-base); background-color: var(--color-surface); position: relative; outline-offset: 2px; }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Always two columns */
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+        }
+        .method-card {
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            background-color: var(--color-surface);
+            position: relative;
+            outline-offset: 2px;
+            display: flex; /* Added for better alignment of icon and text */
+            flex-direction: column; /* Added */
+            align-items: center; /* Added */
+            justify-content: center; /* Added */
+            min-height: 100px; /* Ensure cards have some height */
+        }
         .method-card:hover, .method-card:focus-visible { border-color: var(--color-primary-light); box-shadow: var(--shadow-sm); transform: translateY(-2px); outline: none; }
         .method-card.selected { border-color: var(--color-primary); background-color: #eff6ff; box-shadow: var(--shadow-md); }
         .method-card i { font-size: 1.5rem; color: var(--color-primary); margin-bottom: var(--spacing-2); display: block; }
@@ -359,8 +379,11 @@
             .payment-content { padding: var(--spacing-4) var(--spacing-6) var(--spacing-6) var(--spacing-6); }
             .notification-area { margin-left: var(--spacing-4); margin-right: var(--spacing-4); }
             .payment-content h2 { font-size: 1.3rem; }
-            .payment-methods { grid-template-columns: 1fr 1fr; gap: var(--spacing-3); }
-            .method-card { padding: var(--spacing-3); }
+            /* .payment-methods rule for 2 columns is now the default, so no change needed here unless for smaller gaps */
+             .payment-methods {
+                gap: var(--spacing-3);
+            }
+            .method-card { padding: var(--spacing-3); } /* Can keep this for smaller padding on mobile */
             .method-card i { font-size: 1.3rem; }
             .method-card span { font-size: 0.85rem; }
             .btn { padding: var(--spacing-3) var(--spacing-4); font-size: 0.95rem; }
@@ -374,7 +397,9 @@
             .modal-actions .btn { width: 100%; } /* Full width buttons */
         }
         @media (max-width: 400px) {
-             .payment-methods { grid-template-columns: 1fr; }
+             /* .payment-methods rule for 2 columns is now the default.
+                If cards become too small, can adjust padding or font size here.
+                The 1fr 1fr columns will still apply. */
              .payment-content { padding: var(--spacing-4); }
              .notification-area { margin-left: var(--spacing-2); margin-right: var(--spacing-2); }
              .page-header { padding: var(--spacing-4); }
@@ -415,7 +440,7 @@
 
             <div id="step1" class="payment-step active-step">
                 <div class="content-logo-container">
-                     <img src="paymentlogo.jpg" alt="Psychometrica ProPlus Logo" class="content-logo" onerror="this.style.display='none'">
+                     <img src="paymentlogo.jpg" alt="Psychometrica ProPlus Logo" class="content-logo" onerror="this.style.display='none'; this.parentElement.innerHTML = '<div style=\'text-align:center; color: var(--color-text-muted);\'>Logo not available</div>'">
                 </div>
 
                 <h2>Choose Your Payment Method</h2>
@@ -433,13 +458,13 @@
                     <div id="upi-details" class="payment-details-content">
                          <h4><i class="fa-solid fa-paper-plane"></i> Pay via UPI ID</h4>
                          <p> <strong>UPI ID:</strong> <span class="value" id="upiIdValue">8888801437@ibl</span> <button class="copy-btn" aria-label="Copy UPI ID" data-clipboard-target="#upiIdValue"> <i class="fa-regular fa-copy copy-icon"></i><span class="copy-text">Copied!</span> </button> </p>
-                         <div class="center-link"> <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link"> <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App </a> </div>
+                         <div class="center-link"> <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link" rel="noopener noreferrer"> <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App </a> </div>
                     </div>
                     <div id="qr-details" class="payment-details-content">
                         <h4><i class="fa-solid fa-qrcode"></i> Scan QR Code</h4>
                         <p>Scan this code using another device OR click below to pay:</p>
-                         <img src="qr.jpeg" alt="Scan QR Code to Pay Psychometrica" class="qr-code" onerror="this.alt='QR Code Image Unavailable'; this.style.border='1px dashed #ccc';">
-                         <div class="center-link"> <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link"> <i class="fa-solid fa-mobile-screen-button"></i> Pay with UPI App </a> </div>
+                         <img src="qr.jpeg" alt="Scan QR Code to Pay Psychometrica" class="qr-code" onerror="this.alt='QR Code Image Unavailable'; this.style.border='1px dashed #ccc'; this.style.width='100px'; this.style.height='100px'; this.src=''; this.parentElement.insertAdjacentHTML('beforeend', '<p style=\'text-align:center; color: var(--color-text-muted);\'>QR unavailable</p>');">
+                         <div class="center-link"> <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link" rel="noopener noreferrer"> <i class="fa-solid fa-mobile-screen-button"></i> Pay with UPI App </a> </div>
                     </div>
                     <div id="bank-details" class="payment-details-content">
                         <h4><i class="fa-solid fa-building-columns"></i> Bank Transfer Details</h4>
@@ -454,7 +479,7 @@
                          <h4><i class="fa-solid fa-mobile-screen-button"></i> Pay to Mobile Number</h4>
                          <p>You can pay directly using GPay, PhonePe, Paytm, etc., to the mobile number:</p>
                          <p style="text-align:center; margin-top: var(--spacing-4); font-size: 1.2em; font-weight: 600; color: var(--color-primary); position: relative;"> <i class="fa-solid fa-mobile-screen"></i> <span id="mobileNoValue" style="padding-right: 30px;">8888801437</span> <button class="copy-btn" aria-label="Copy Mobile Number" data-clipboard-target="#mobileNoValue"> <i class="fa-regular fa-copy copy-icon"></i><span class="copy-text">Copied!</span> </button> </p>
-                         <div class="center-link"> <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link"> <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App (via Mobile No) </a> </div>
+                         <div class="center-link"> <a href="upi://pay?pa=8888801437@ibl&pn=Psychometrica&cu=INR" target="_blank" class="upi-link" rel="noopener noreferrer"> <i class="fa-solid fa-arrow-up-right-from-square"></i> Open UPI App (via Mobile No) </a> </div>
                     </div>
                 </div>
 
@@ -471,7 +496,7 @@
                     <h3><i class="fa-solid fa-receipt"></i> Your Information</h3>
                     <div class="form-group">
                         <label for="name">Your Full Name</label>
-                        <input type="text" id="name" placeholder="Enter the name used for payment" required aria-required="true" aria-describedby="name-error">
+                        <input type="text" id="name" placeholder="Enter the name used for payment" required aria-required="true" aria-describedby="name-error" inputmode="text">
                         <div class="error-message" id="name-error" aria-live="polite"></div>
                     </div>
                     <div class="form-group">
@@ -487,7 +512,7 @@
                     </div>
                     <div class="form-group">
                          <label for="txnid">Transaction ID / Reference No.</label>
-                        <input type="text" id="txnid" placeholder="Enter the successful transaction ID" required aria-required="true" aria-describedby="txnid-error">
+                        <input type="text" id="txnid" placeholder="Enter the successful transaction ID" required aria-required="true" aria-describedby="txnid-error" inputmode="verbatim">
                         <div class="error-message" id="txnid-error" aria-live="polite"></div>
                     </div>
 
@@ -554,15 +579,18 @@
         function showNotification(message, type = 'info', duration = 5000) {
             if (notificationTimeout) clearTimeout(notificationTimeout);
             notificationMessage.textContent = message;
-            notificationIcon.className = 'fa-solid';
-            notificationArea.className = 'notification-area';
+            notificationIcon.className = 'fa-solid'; // Reset icons
+            notificationArea.className = 'notification-area'; // Reset classes
 
             if (type === 'error') { notificationIcon.classList.add('fa-circle-exclamation'); notificationArea.classList.add('error'); }
             else if (type === 'success') { notificationIcon.classList.add('fa-check-circle'); notificationArea.classList.add('success'); }
             else { notificationIcon.classList.add('fa-circle-info'); notificationArea.classList.add('info'); }
 
             notificationArea.classList.add('show');
-            if (type === 'error') { notificationArea.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            // Scroll into view only for errors or important infos if needed
+            if (type === 'error') {
+                notificationArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
 
             if (duration > 0) { notificationTimeout = setTimeout(() => notificationArea.classList.remove('show'), duration); }
         }
@@ -575,14 +603,25 @@
         async function copyToClipboard(button) {
             const targetSelector = button.dataset.clipboardTarget;
             const targetElement = document.querySelector(targetSelector);
-            if (!targetElement || !navigator.clipboard) { showNotification('Could not copy text.', 'error'); return; }
+            if (!targetElement || !navigator.clipboard) {
+                showNotification('Could not copy text. Clipboard API not available or element not found.', 'error');
+                return;
+            }
             const textToCopy = targetElement.innerText || targetElement.textContent;
             try {
                 await navigator.clipboard.writeText(textToCopy);
+                const originalLabel = button.getAttribute('aria-label');
                 button.classList.add('copied');
-                showNotification(`${button.getAttribute('aria-label').replace('Copy ','')} copied!`, 'success', 2000);
-                setTimeout(() => button.classList.remove('copied'), 1500);
-            } catch (err) { console.error('Failed to copy text: ', err); showNotification('Failed to copy text.', 'error'); }
+                // More descriptive success message
+                const itemName = originalLabel.replace('Copy ', '');
+                showNotification(`${itemName} copied to clipboard!`, 'success', 2000);
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                }, 1500);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                showNotification('Failed to copy text. Check browser permissions.', 'error');
+            }
         }
 
         function clearValidationError(inputElement) {
@@ -607,21 +646,18 @@
         /** Opens the confirmation modal */
         function openConfirmModal() {
             hideNotification();
-             // Validation: Ensure a payment method was selected first
             if (!selectedPaymentMethod) {
                 showNotification("Please select a payment method first.", 'error');
                 paymentMethodsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Optionally, add a visual cue to the payment methods section
+                paymentMethodsContainer.style.outline = '2px dashed var(--color-error)';
+                setTimeout(() => { paymentMethodsContainer.style.outline = 'none'; }, 2000);
                 return;
             }
 
-            // Update modal message with the selected method name
             modalMessage.textContent = `Have you completed the payment using ${selectedPaymentMethodName}? You will be asked for transaction details next.`;
-
-            // Show modal
             confirmationModal.classList.add('show');
-            document.body.classList.add('modal-open'); // Prevent body scroll
-
-            // Focus the confirm button for accessibility
+            document.body.classList.add('modal-open');
             modalConfirmButton.focus();
         }
 
@@ -636,7 +672,7 @@
             const action = event.target.dataset.action;
             if (action === 'confirm') {
                 closeConfirmModal();
-                goToStep(2); // Proceed to step 2 if confirmed
+                goToStep(2);
             } else if (action === 'cancel') {
                 closeConfirmModal();
             }
@@ -650,7 +686,10 @@
             selectedPaymentMethod = method;
             methodCards.forEach(card => {
                 card.classList.toggle('selected', card.dataset.method === method);
-                if (card.dataset.method === method) { selectedPaymentMethodName = card.querySelector('span').textContent.trim(); }
+                card.setAttribute('aria-pressed', card.dataset.method === method); // For accessibility
+                if (card.dataset.method === method) {
+                    selectedPaymentMethodName = card.querySelector('span').textContent.trim();
+                }
             });
             detailsPlaceholder.style.display = 'none';
             let detailsShown = false;
@@ -663,50 +702,86 @@
             if (!detailsShown) detailsPlaceholder.style.display = 'block';
         }
 
-        // NOTE: confirmAndGoToStep2 is replaced by openConfirmModal and handleModalAction
 
         function goToStep(stepNum) {
             hideNotification();
             const isStep1 = stepNum === 1;
             step1Div.classList.toggle("active-step", isStep1);
             step2Div.classList.toggle("active-step", !isStep1);
-            indicatorStep1.classList.add('active');
+
+            indicatorStep1.classList.toggle('active', isStep1); // Always active if step 1
             indicatorStep2.classList.toggle('active', !isStep1);
             indicatorSeparator.classList.toggle('active', !isStep1);
 
-            if (!isStep1) { // Entering Step 2
-                 if (!selectedPaymentMethod && step1Div.classList.contains('active-step')) {
-                     console.error("Cannot proceed to step 2 without selecting a payment method.");
-                     showNotification("An error occurred. Please select a payment method again.", 'error');
+
+            if (!isStep1) {
+                 if (!selectedPaymentMethod && !step1Div.classList.contains('active-step')) { // Check if we are in step 2 without selection
+                     console.error("Cannot proceed to step 2 without selecting a payment method from step 1.");
+                     showNotification("An error occurred. Please select a payment method again from Step 1.", 'error');
+                     goToStep(1); // Force back to step 1
                      return;
                  }
+                // Clear previous validation states when entering step 2
                 clearValidationError(nameInput);
                 clearValidationError(purposeSelect);
                 clearValidationError(txnidInput);
+                nameInput.focus(); // Focus on the first field in step 2
             }
 
+             // Scroll to the top of the container for better UX
              setTimeout(() => {
-                const containerTop = document.querySelector('.payment-container').offsetTop;
+                const containerTop = document.querySelector('.payment-container').getBoundingClientRect().top + window.scrollY;
                  window.scrollTo({ top: containerTop - 20, behavior: 'smooth' });
-            }, 100);
+            }, 100); // Slight delay for rendering
         }
 
         function handleConfirmationSubmit(event) {
              event.preventDefault();
              hideNotification();
-             if (validateConfirmationForm()) sendWhatsApp();
-             else showNotification("Please correct the errors in the form.", 'error');
+             if (validateConfirmationForm()) {
+                sendWhatsApp();
+             } else {
+                showNotification("Please correct the errors in the form before submitting.", 'error');
+             }
         }
 
         function validateConfirmationForm() {
             let isValid = true;
             let firstErrorElement = null;
+
+            // Clear previous errors
             [nameInput, purposeSelect, txnidInput].forEach(input => clearValidationError(input));
-            if (!nameInput.value.trim()) { setValidationError(nameInput, "Please enter Your Full Name."); if (!firstErrorElement) firstErrorElement = nameInput; isValid = false; }
-            if (!purposeSelect.value) { setValidationError(purposeSelect, "Please select the Purpose of Payment."); if (!firstErrorElement) firstErrorElement = purposeSelect; isValid = false; }
-            if (!txnidInput.value.trim()) { setValidationError(txnidInput, "Please enter the Transaction ID / Reference No."); if (!firstErrorElement) firstErrorElement = txnidInput; isValid = false; }
-            if (!selectedPaymentMethod) { showNotification("Error: Payment method selection lost. Please go back.", 'error'); goToStep(1); isValid = false; }
-            if (!isValid && firstErrorElement) firstErrorElement.focus();
+
+            if (!nameInput.value.trim()) {
+                setValidationError(nameInput, "Your Full Name is required.");
+                if (!firstErrorElement) firstErrorElement = nameInput;
+                isValid = false;
+            }
+            if (!purposeSelect.value) {
+                setValidationError(purposeSelect, "Please select the Purpose of Payment.");
+                if (!firstErrorElement) firstErrorElement = purposeSelect;
+                isValid = false;
+            }
+            if (!txnidInput.value.trim()) {
+                setValidationError(txnidInput, "Transaction ID / Reference No. is required.");
+                if (!firstErrorElement) firstErrorElement = txnidInput;
+                isValid = false;
+            } else if (txnidInput.value.trim().length < 5) { // Example: Minimum length
+                 setValidationError(txnidInput, "Transaction ID seems too short. Please check.");
+                if (!firstErrorElement) firstErrorElement = txnidInput;
+                isValid = false;
+            }
+
+            if (!selectedPaymentMethod) {
+                showNotification("Error: No payment method was selected. Please go back to Step 1.", 'error');
+                goToStep(1); // Should not happen if modal flow is correct, but as a safeguard
+                isValid = false;
+            }
+
+            if (!isValid && firstErrorElement) {
+                firstErrorElement.focus();
+                firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
             return isValid;
         }
 
@@ -715,71 +790,104 @@
             const purpose = purposeSelect.value;
             const txnid = txnidInput.value.trim();
             const mode = selectedPaymentMethod;
-            const orderId = "ORD" + Date.now();
-            let modeDisplay = selectedPaymentMethodName || (mode ? mode.toUpperCase() : 'N/A');
-            const messageBody = `🧾 *Payment Confirmation - Psychometrica ProPlus*\n\n👤 *Name:* ${name}\n💼 *Purpose:* ${purpose}\n💳 *Mode Used:* ${modeDisplay}\n📎 *Txn ID/Ref:* ${txnid}\n🆔 *Internal Order ID:* ${orderId}\n\n------------------------------------\n*Please attach payment screenshot here in chat.* 🙏`;
+            const orderId = "ORD" + Date.now() + Math.random().toString(36).substring(2, 7).toUpperCase(); // Slightly more unique ID
+            let modeDisplay = selectedPaymentMethodName || (mode ? mode.charAt(0).toUpperCase() + mode.slice(1) : 'N/A');
+
+            const messageBody = `🧾 *Payment Confirmation - Psychometrica ProPlus*\n\n` +
+                                `👤 *Name:* ${name}\n` +
+                                `💼 *Purpose:* ${purpose}\n` +
+                                `💳 *Mode Used:* ${modeDisplay}\n` +
+                                `📎 *Txn ID/Ref:* ${txnid}\n` +
+                                `🆔 *Internal Order ID:* ${orderId}\n\n` +
+                                `------------------------------------\n` +
+                                `*Please attach payment screenshot here in chat.* 🙏`;
+
             const encodedMsg = encodeURIComponent(messageBody);
-            const phone = "919284157202"; // IMPORTANT: Use the correct number
+            const phone = "919284157202"; // IMPORTANT: Use the correct number (Country code included)
             const url = `https://wa.me/${phone}?text=${encodedMsg}`;
+
             const submitButton = confirmationForm.querySelector('button[type="submit"]');
             const originalButtonHTML = submitButton.innerHTML;
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening WhatsApp...';
             submitButton.disabled = true;
+
             setTimeout(() => {
-                try { window.open(url, "_blank"); showNotification("Redirecting to WhatsApp...", 'info', 3000); }
-                catch (e) { console.error("Could not open WhatsApp link:", e); showNotification("Could not open WhatsApp. Please check pop-up blockers.", 'error'); }
-                finally { setTimeout(() => { submitButton.innerHTML = originalButtonHTML; submitButton.disabled = false; }, 1500); }
+                try {
+                    const whatsappWindow = window.open(url, "_blank", "noopener,noreferrer");
+                    if (whatsappWindow) {
+                        showNotification("Redirecting to WhatsApp... Please attach your screenshot.", 'info', 4000);
+                        // Optionally, reset form or show a success message on the page after a delay
+                        // setTimeout(() => {
+                        //     confirmationForm.reset();
+                        //     goToStep(1); // Or show a dedicated success page/message
+                        //     showNotification("Your details are ready for WhatsApp. Please complete the process there.", 'success', 5000);
+                        // }, 3000);
+                    } else {
+                        showNotification("Could not open WhatsApp. Please check if pop-ups are blocked and try again.", 'error', 6000);
+                    }
+                }
+                catch (e) {
+                    console.error("Could not open WhatsApp link:", e);
+                    showNotification("An error occurred while trying to open WhatsApp. Please try again or contact support.", 'error', 6000);
+                }
+                finally {
+                    // Restore button after a slightly longer delay to ensure user sees the redirection attempt
+                    setTimeout(() => {
+                        submitButton.innerHTML = originalButtonHTML;
+                        submitButton.disabled = false;
+                    }, 2000);
+                }
             }, 300);
         }
 
         // --- Event Listeners Setup ---
         function initializePage() {
-            // Method Selection
             methodCards.forEach(card => {
                 card.addEventListener('click', () => selectPaymentMethod(card.dataset.method));
-                card.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectPaymentMethod(card.dataset.method); card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } });
+                card.addEventListener('keydown', (event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        selectPaymentMethod(card.dataset.method);
+                        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
             });
 
-            // Copy Buttons
-            copyButtons.forEach(button => button.addEventListener('click', () => copyToClipboard(button)));
+            copyButtons.forEach(button => button.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent card selection if copy button is inside
+                copyToClipboard(button);
+            }));
 
-            // Form Submission
             confirmationForm.addEventListener('submit', handleConfirmationSubmit);
 
-            // Form Input Validation Clearing
             [nameInput, purposeSelect, txnidInput].forEach(input => {
                 input.addEventListener('input', () => clearValidationError(input));
-                if (input.tagName === 'SELECT') { input.addEventListener('change', () => clearValidationError(input)); }
+                if (input.tagName === 'SELECT') {
+                    input.addEventListener('change', () => clearValidationError(input));
+                }
             });
 
-            // Modal Actions
             modalConfirmButton.addEventListener('click', handleModalAction);
             modalCancelButton.addEventListener('click', handleModalAction);
-            // Close modal if overlay is clicked
             confirmationModal.addEventListener('click', (event) => {
-                 if (event.target === confirmationModal) { // Check if the click is directly on the overlay
+                 if (event.target === confirmationModal) {
                      closeConfirmModal();
                  }
             });
-             // Close modal on Escape key press
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape' && confirmationModal.classList.contains('show')) {
                     closeConfirmModal();
                 }
             });
 
-
-            // Initial State
             detailsPlaceholder.style.display = 'block';
             detailContents.forEach(content => content.classList.remove('active'));
             paymentDetailsArea.classList.remove('has-details');
             hideNotification();
-            closeConfirmModal(); // Ensure modal is hidden on load
+            closeConfirmModal();
         }
 
-        // --- Initialization ---
         document.addEventListener('DOMContentLoaded', initializePage);
-
     </script>
 </body>
 </html>
